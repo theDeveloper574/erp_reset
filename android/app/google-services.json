@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "954538909546",
+    "project_id": "pospits-ec0a0",
+    "storage_bucket": "pospits-ec0a0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:954538909546:android:ddbc5a0f481dbdecb20f13",
+        "android_client_info": {
+          "package_name": "com.pits.pos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "954538909546-7v4fm7uj0n0a6h1lll5373i74gl6hhgl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCFucXggFyaJeJYMclu3jQ2SLzC-rWWKA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "954538909546-7v4fm7uj0n0a6h1lll5373i74gl6hhgl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

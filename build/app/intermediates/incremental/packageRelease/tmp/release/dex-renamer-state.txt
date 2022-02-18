@@ -1,0 +1,4 @@
+#Tue Feb 15 03:25:05 PKT 2022
+base.0=F\:\\Projects\\POS-master\\build\\app\\intermediates\\transforms\\r8\\release\\0\\classes.dex
+path.0=classes.dex
+renamed.0=classes.dex

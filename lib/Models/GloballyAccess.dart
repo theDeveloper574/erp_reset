@@ -1,0 +1,23 @@
+import 'package:makeupshop/screens/shipment.dart';
+
+String accessToken;
+int userId;
+String userName;
+String lastName;
+int variationId;
+int productId;
+int locationId;
+int cartValues;
+String unitId;
+String contactId;
+String currencySymbol;
+int shipmentSaleId;
+int shipmentProductId;
+int shipmentContactId;
+int shipmentSelllineId;
+int shipmentVariationId;
+int shipmentPaymentId;
+int shippmentSaleId;
+int cartItem;
+String address1 = '';
+String status;
