@@ -11,6 +11,7 @@ import 'package:http/http.dart' as http;
 import 'package:makeupshop/Models/sellModel.dart';
 import 'package:makeupshop/api/GloballyApi.dart';
 import 'package:makeupshop/screens/BottomAppBar.dart';
+import 'package:makeupshop/style/color.dart';
 
 import 'package:makeupshop/widget/MyDrawer.dart';
 
@@ -116,188 +117,81 @@ class _AddUserState extends State<AddUser> {
     return Scaffold(
       key: _scaffold,
       drawer: BuildMyDrawer(),
-      // backgroundColor: Color(0xff031344),
-      body: SafeArea(
-        child: Container(
-          color: Color(0xff031344),
-          child: Column(
-            children: [
-              SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 13),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      appBar: AppBar(
+        elevation: 0.0,
+        backgroundColor: appBarColor,
+        leading: InkWell(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Icon(Icons.arrow_back)),
+        title: Text('Add User'),
+      ),
+      body: Container(
+        color: appBarColor,
+        child: Column(
+          children: [
+            Expanded(
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 12),
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage('asset/bgColor.png'),
+                        fit: BoxFit.fill),
+                    color: Colors.white.withOpacity(0.9),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(24),
+                        topRight: Radius.circular(24))),
+                child: ListView(
                   children: [
-                    Row(
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            setState(() {
-                              Navigator.pop(context, false);
-                            });
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(15)),
-                            child: Icon(
-                              Icons.arrow_back_sharp,
-                              color: Colors.black,
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+                    Container(
+                      child: Form(
+                        key: _formkey,
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              width: 5,
                             ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 9,
-                        ),
-                        InkWell(
-                          onTap: () {
-                            print('KKKKKKKKKKKK');
-                            if (locationType == "All") {
-                              locationType1 = 1;
-                              return print(locationType1);
-                            } else {
-                              return print('OOOOOOOOOOOO');
-                            }
-                          },
-                          child: Text('Add User',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 20)),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Expanded(
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 12),
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage('asset/bgColor.png'),
-                          fit: BoxFit.fill),
-                      color: Colors.white.withOpacity(0.9),
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(24),
-                          topRight: Radius.circular(24))),
-                  child: ListView(
-                    children: [
-                      SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.03),
-                      Container(
-                        child: Form(
-                          key: _formkey,
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                width: 5,
-                              ),
-                              SizedBox(
-                                height: 8,
-                              ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: Container(
-                                      padding:
-                                          EdgeInsets.only(left: 16, right: 16),
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                              color: Colors.grey, width: 1),
-                                          borderRadius:
-                                              BorderRadius.circular(9),
-                                          color: Colors.white),
-                                      child: DropdownButton(
-                                        isExpanded: true,
-                                        underline: SizedBox(),
-                                        hint: Text('Prefix:'),
-                                        icon: Icon(
-                                            Icons.arrow_drop_down_outlined),
-                                        value: surNameType,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            surNameType = value;
-                                          });
-                                        },
-                                        items: surNameList.map((value) {
-                                          return DropdownMenuItem(
-                                              value: value, child: Text(value));
-                                        }).toList(),
-                                      ),
+                            SizedBox(
+                              height: 8,
+                            ),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Container(
+                                    padding:
+                                        EdgeInsets.only(left: 16, right: 16),
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                            color: Colors.grey, width: 1),
+                                        borderRadius: BorderRadius.circular(9),
+                                        color: Colors.white),
+                                    child: DropdownButton(
+                                      isExpanded: true,
+                                      underline: SizedBox(),
+                                      hint: Text('Prefix:'),
+                                      icon:
+                                          Icon(Icons.arrow_drop_down_outlined),
+                                      value: surNameType,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          surNameType = value;
+                                        });
+                                      },
+                                      items: surNameList.map((value) {
+                                        return DropdownMenuItem(
+                                            value: value, child: Text(value));
+                                      }).toList(),
                                     ),
                                   ),
-                                  SizedBox(
-                                    width: 1,
-                                  ),
-                                  Expanded(
-                                      child: Container(
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(9),
-                                              color: Colors.white),
-                                          child: TextFormField(
-                                            validator: (value) {
-                                              if (value.isEmpty)
-                                                return 'Enter first Name';
-                                              else
-                                                return null;
-
-                                              // ignore: unrelated_type_equality_checks
-                                            },
-                                            controller: firstName,
-                                            decoration: InputDecoration(
-                                                contentPadding:
-                                                    EdgeInsets.symmetric(
-                                                        vertical: 0,
-                                                        horizontal: 16),
-                                                hintText: 'First Name',
-                                                border: OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            9))),
-                                          ))),
-                                  SizedBox(
-                                    width: 1,
-                                  ),
-                                  Expanded(
-                                      child: Container(
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(9),
-                                              color: Colors.white),
-                                          child: TextFormField(
-                                            validator: (value) {
-                                              if (value.isEmpty)
-                                                return 'Enter last Name';
-                                              else
-                                                return null;
-
-                                              // ignore: unrelated_type_equality_checks
-                                            },
-                                            controller: lastName,
-                                            decoration: InputDecoration(
-                                                contentPadding:
-                                                    EdgeInsets.symmetric(
-                                                        vertical: 0,
-                                                        horizontal: 16),
-                                                hintText: 'Last Name ',
-                                                border: OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            9))),
-                                          ))),
-                                ],
-                              ),
-                              SizedBox(
-                                  height: MediaQuery.of(context).size.height *
-                                      0.01),
-                              Row(
-                                children: [
-                                  Expanded(
+                                ),
+                                SizedBox(
+                                  width: 1,
+                                ),
+                                Expanded(
                                     child: Container(
                                         decoration: BoxDecoration(
                                             borderRadius:
@@ -306,403 +200,454 @@ class _AddUserState extends State<AddUser> {
                                         child: TextFormField(
                                           validator: (value) {
                                             if (value.isEmpty)
-                                              return 'Enter Email';
+                                              return 'Enter first Name';
                                             else
                                               return null;
 
                                             // ignore: unrelated_type_equality_checks
                                           },
-                                          controller: email,
+                                          controller: firstName,
                                           decoration: InputDecoration(
                                               contentPadding:
                                                   EdgeInsets.symmetric(
                                                       vertical: 0,
                                                       horizontal: 16),
-                                              hintText: 'Email ',
+                                              hintText: 'First Name',
                                               border: OutlineInputBorder(
                                                   borderRadius:
                                                       BorderRadius.circular(
                                                           9))),
-                                        )),
-                                  ),
-                                  Checkbox(
-                                    value: valueCeckBox2,
-                                    onChanged: (bool value) {
-                                      setState(() {
-                                        valueCeckBox2 = value;
-                                        if (value) {
-                                          // selectedPrior.add(1);
-                                          check3 = 1;
-                                          print(check3);
-                                          print(selectedPrior);
-                                        } else {
-                                          // selectedPrior.add(0);
-                                          // selectedPrior.remove(1);
+                                        ))),
+                                SizedBox(
+                                  width: 1,
+                                ),
+                                Expanded(
+                                    child: Container(
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(9),
+                                            color: Colors.white),
+                                        child: TextFormField(
+                                          validator: (value) {
+                                            if (value.isEmpty)
+                                              return 'Enter last Name';
+                                            else
+                                              return null;
 
-                                          print(selectedPrior);
-                                        }
-                                      });
-                                    },
-                                  ),
-                                  Text('Is Active?'),
-                                ],
-                              ),
-                              SizedBox(
-                                  height: MediaQuery.of(context).size.height *
-                                      0.01),
-                              Row(
-                                children: [
-                                  Text(
-                                    'Roles and Permission',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                  height: MediaQuery.of(context).size.height *
-                                      0.01),
-                              Row(
-                                children: [
-                                  Checkbox(
-                                    value: valueCeckBox1,
-                                    onChanged: (bool value) {
-                                      setState(() {
-                                        valueCeckBox1 = value;
-                                        if (value) {
-                                          // selectedPrior.add(1);
-                                          check2 = 1;
-                                          print(check2);
-                                          print(selectedPrior);
-                                        } else {
-                                          // selectedPrior.add(0);
-                                          // selectedPrior.remove(1);
-
-                                          print(selectedPrior);
-                                        }
-                                      });
-                                    },
-                                  ),
-                                  Text('Allow Login'),
-                                ],
-                              ),
-                              valueCeckBox1
-                                  ? Column(
-                                      children: [
-                                        Container(
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(9),
-                                                color: Colors.white),
-                                            child: TextFormField(
-                                              validator: (value) {
-                                                if (value.isEmpty)
-                                                  return 'Enter User Name';
-                                                else
-                                                  return null;
-
-                                                // ignore: unrelated_type_equality_checks
-                                              },
-                                              controller: userName1,
-                                              decoration: InputDecoration(
-                                                  contentPadding:
-                                                      EdgeInsets.symmetric(
-                                                          vertical: 0,
-                                                          horizontal: 16),
-                                                  hintText: 'User Name ',
-                                                  border: OutlineInputBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              9))),
-                                            )),
-                                        SizedBox(
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.01,
-                                        ),
-                                        Container(
-                                          child: TextFormField(
-                                            controller: password,
-                                            obscureText: _obsecureText,
-                                            // controller: u,
-                                            decoration: InputDecoration(
-                                              fillColor: Colors.white,
+                                            // ignore: unrelated_type_equality_checks
+                                          },
+                                          controller: lastName,
+                                          decoration: InputDecoration(
                                               contentPadding:
-                                                  EdgeInsets.all(8.0),
-                                              hintText: 'Password',
-                                              prefixIcon: Icon(Icons.lock),
-                                              suffixIcon: IconButton(
-                                                onPressed: _toggle,
-                                                icon: Icon(
-                                                  _obsecureText
-                                                      ? Icons.visibility_off
-                                                      : Icons.visibility,
-                                                ),
-                                              ),
-                                              hintStyle: TextStyle(
-                                                color: Colors.grey,
-                                              ),
-                                              filled: true,
+                                                  EdgeInsets.symmetric(
+                                                      vertical: 0,
+                                                      horizontal: 16),
+                                              hintText: 'Last Name ',
                                               border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          9))),
+                                        ))),
+                              ],
+                            ),
+                            SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.01),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Container(
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(9),
+                                          color: Colors.white),
+                                      child: TextFormField(
+                                        validator: (value) {
+                                          if (value.isEmpty)
+                                            return 'Enter Email';
+                                          else
+                                            return null;
+
+                                          // ignore: unrelated_type_equality_checks
+                                        },
+                                        controller: email,
+                                        decoration: InputDecoration(
+                                            contentPadding:
+                                                EdgeInsets.symmetric(
+                                                    vertical: 0,
+                                                    horizontal: 16),
+                                            hintText: 'Email ',
+                                            border: OutlineInputBorder(
                                                 borderRadius:
-                                                    BorderRadius.circular(10.0),
-                                                borderSide: BorderSide(
-                                                  color: Colors.grey,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.01,
-                                        ),
-                                        Container(
-                                          padding: EdgeInsets.only(
-                                              left: 16, right: 16),
+                                                    BorderRadius.circular(9))),
+                                      )),
+                                ),
+                                Checkbox(
+                                  value: valueCeckBox2,
+                                  onChanged: (bool value) {
+                                    setState(() {
+                                      valueCeckBox2 = value;
+                                      if (value) {
+                                        // selectedPrior.add(1);
+                                        check3 = 1;
+                                        print(check3);
+                                        print(selectedPrior);
+                                      } else {
+                                        // selectedPrior.add(0);
+                                        // selectedPrior.remove(1);
+
+                                        print(selectedPrior);
+                                      }
+                                    });
+                                  },
+                                ),
+                                Text('Is Active?'),
+                              ],
+                            ),
+                            SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.01),
+                            Row(
+                              children: [
+                                Text(
+                                  'Roles and Permission',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.01),
+                            Row(
+                              children: [
+                                Checkbox(
+                                  value: valueCeckBox1,
+                                  onChanged: (bool value) {
+                                    setState(() {
+                                      valueCeckBox1 = value;
+                                      if (value) {
+                                        // selectedPrior.add(1);
+                                        check2 = 1;
+                                        print(check2);
+                                        print(selectedPrior);
+                                      } else {
+                                        // selectedPrior.add(0);
+                                        // selectedPrior.remove(1);
+
+                                        print(selectedPrior);
+                                      }
+                                    });
+                                  },
+                                ),
+                                Text('Allow Login'),
+                              ],
+                            ),
+                            valueCeckBox1
+                                ? Column(
+                                    children: [
+                                      Container(
                                           decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  color: Colors.grey, width: 1),
                                               borderRadius:
                                                   BorderRadius.circular(9),
                                               color: Colors.white),
-                                          child: DropdownButton(
-                                            isExpanded: true,
-                                            underline: SizedBox(),
-                                            hint: Text('Select Role'),
-                                            icon: Icon(
-                                                Icons.arrow_drop_down_outlined),
-                                            value: roleType,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                roleType = value;
-                                              });
+                                          child: TextFormField(
+                                            validator: (value) {
+                                              if (value.isEmpty)
+                                                return 'Enter User Name';
+                                              else
+                                                return null;
+
+                                              // ignore: unrelated_type_equality_checks
                                             },
-                                            items: roleList.map((value) {
-                                              return DropdownMenuItem(
-                                                  value: value,
-                                                  child: Text(value));
-                                            }).toList(),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.01,
-                                        ),
-                                        Row(
-                                          children: [
-                                            Expanded(
-                                              child: Container(
-                                                padding: EdgeInsets.only(
-                                                    left: 16, right: 16),
-                                                decoration: BoxDecoration(
-                                                    border: Border.all(
-                                                        color: Colors.grey,
-                                                        width: 1),
+                                            controller: userName1,
+                                            decoration: InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.symmetric(
+                                                        vertical: 0,
+                                                        horizontal: 16),
+                                                hintText: 'User Name ',
+                                                border: OutlineInputBorder(
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            9),
-                                                    color: Colors.white),
-                                                child: DropdownButton(
-                                                  isExpanded: true,
-                                                  underline: SizedBox(),
-                                                  hint: Text('Select Location'),
-                                                  icon: Icon(Icons
-                                                      .arrow_drop_down_outlined),
-                                                  value: locationType,
-                                                  onChanged: (value) {
-                                                    setState(() {
-                                                      locationType = value;
-                                                    });
-                                                  },
-                                                  items:
-                                                      locationList.map((value) {
-                                                    return DropdownMenuItem(
-                                                        value: value,
-                                                        child: Text(
-                                                            value.toString()));
-                                                  }).toList(),
-                                                ),
+                                                            9))),
+                                          )),
+                                      SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.01,
+                                      ),
+                                      Container(
+                                        child: TextFormField(
+                                          controller: password,
+                                          obscureText: _obsecureText,
+                                          // controller: u,
+                                          decoration: InputDecoration(
+                                            fillColor: Colors.white,
+                                            contentPadding: EdgeInsets.all(8.0),
+                                            hintText: 'Password',
+                                            prefixIcon: Icon(Icons.lock),
+                                            suffixIcon: IconButton(
+                                              onPressed: _toggle,
+                                              icon: Icon(
+                                                _obsecureText
+                                                    ? Icons.visibility_off
+                                                    : Icons.visibility,
                                               ),
                                             ),
-                                            Checkbox(
-                                              value: valueCeckBox,
-                                              onChanged: (bool value) {
-                                                setState(() {
-                                                  valueCeckBox = value;
-                                                  if (value) {
-                                                    // selectedPrior.add(1);
-                                                    check1 = 1;
-                                                    print(check1);
-                                                    print(selectedPrior);
-                                                  } else {
-                                                    check1 = 0;
-                                                    // selectedPrior.add(0);
-                                                    // selectedPrior.remove(1);
-
-                                                    print(selectedPrior);
-                                                  }
-                                                });
-                                              },
+                                            hintStyle: TextStyle(
+                                              color: Colors.grey,
                                             ),
-                                            Text('Access all Location'),
-                                          ],
+                                            filled: true,
+                                            border: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                              borderSide: BorderSide(
+                                                color: Colors.grey,
+                                              ),
+                                            ),
+                                          ),
                                         ),
-                                      ],
-                                    )
-                                  : Container(),
-                              SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.01,
+                                      ),
+                                      SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.01,
+                                      ),
+                                      Container(
+                                        padding: EdgeInsets.only(
+                                            left: 16, right: 16),
+                                        decoration: BoxDecoration(
+                                            border: Border.all(
+                                                color: Colors.grey, width: 1),
+                                            borderRadius:
+                                                BorderRadius.circular(9),
+                                            color: Colors.white),
+                                        child: DropdownButton(
+                                          isExpanded: true,
+                                          underline: SizedBox(),
+                                          hint: Text('Select Role'),
+                                          icon: Icon(
+                                              Icons.arrow_drop_down_outlined),
+                                          value: roleType,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              roleType = value;
+                                            });
+                                          },
+                                          items: roleList.map((value) {
+                                            return DropdownMenuItem(
+                                                value: value,
+                                                child: Text(value));
+                                          }).toList(),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.01,
+                                      ),
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: Container(
+                                              padding: EdgeInsets.only(
+                                                  left: 16, right: 16),
+                                              decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      color: Colors.grey,
+                                                      width: 1),
+                                                  borderRadius:
+                                                      BorderRadius.circular(9),
+                                                  color: Colors.white),
+                                              child: DropdownButton(
+                                                isExpanded: true,
+                                                underline: SizedBox(),
+                                                hint: Text('Select Location'),
+                                                icon: Icon(Icons
+                                                    .arrow_drop_down_outlined),
+                                                value: locationType,
+                                                onChanged: (value) {
+                                                  setState(() {
+                                                    locationType = value;
+                                                  });
+                                                },
+                                                items:
+                                                    locationList.map((value) {
+                                                  return DropdownMenuItem(
+                                                      value: value,
+                                                      child: Text(
+                                                          value.toString()));
+                                                }).toList(),
+                                              ),
+                                            ),
+                                          ),
+                                          Checkbox(
+                                            value: valueCeckBox,
+                                            onChanged: (bool value) {
+                                              setState(() {
+                                                valueCeckBox = value;
+                                                if (value) {
+                                                  // selectedPrior.add(1);
+                                                  check1 = 1;
+                                                  print(check1);
+                                                  print(selectedPrior);
+                                                } else {
+                                                  check1 = 0;
+                                                  // selectedPrior.add(0);
+                                                  // selectedPrior.remove(1);
+
+                                                  print(selectedPrior);
+                                                }
+                                              });
+                                            },
+                                          ),
+                                          Text('Access all Location'),
+                                        ],
+                                      ),
+                                    ],
+                                  )
+                                : Container(),
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.01,
+                            ),
+                            Container(
+                              padding: EdgeInsets.only(left: 16, right: 16),
+                              decoration: BoxDecoration(
+                                  border:
+                                      Border.all(color: Colors.grey, width: 1),
+                                  borderRadius: BorderRadius.circular(9),
+                                  color: Colors.white),
+                              child: DropdownButton(
+                                isExpanded: true,
+                                underline: SizedBox(),
+                                hint: Text('Select Gender'),
+                                icon: Icon(Icons.arrow_drop_down_outlined),
+                                value: genderType,
+                                onChanged: (value) {
+                                  setState(() {
+                                    genderType = value;
+                                  });
+                                },
+                                items: genderList.map((value) {
+                                  return DropdownMenuItem(
+                                      value: value, child: Text(value));
+                                }).toList(),
                               ),
-                              Container(
-                                padding: EdgeInsets.only(left: 16, right: 16),
+                            ),
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.01,
+                            ),
+                            Container(
+                              padding: EdgeInsets.only(left: 16, right: 16),
+                              decoration: BoxDecoration(
+                                  border:
+                                      Border.all(color: Colors.grey, width: 1),
+                                  borderRadius: BorderRadius.circular(9),
+                                  color: Colors.white),
+                              child: DropdownButton(
+                                isExpanded: true,
+                                underline: SizedBox(),
+                                hint: Text('Select Marital Status'),
+                                icon: Icon(Icons.arrow_drop_down_outlined),
+                                value: maritalType,
+                                onChanged: (value) {
+                                  setState(() {
+                                    maritalType = value;
+                                  });
+                                },
+                                items: maritalList.map((value) {
+                                  return DropdownMenuItem(
+                                      value: value, child: Text(value));
+                                }).toList(),
+                              ),
+                            ),
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.01,
+                            ),
+                            Container(
                                 decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: Colors.grey, width: 1),
                                     borderRadius: BorderRadius.circular(9),
                                     color: Colors.white),
-                                child: DropdownButton(
-                                  isExpanded: true,
-                                  underline: SizedBox(),
-                                  hint: Text('Select Gender'),
-                                  icon: Icon(Icons.arrow_drop_down_outlined),
-                                  value: genderType,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      genderType = value;
-                                    });
+                                child: TextFormField(
+                                  validator: (value) {
+                                    if (value.isEmpty)
+                                      return 'Enter Phone No';
+                                    else
+                                      return null;
+
+                                    // ignore: unrelated_type_equality_checks
                                   },
-                                  items: genderList.map((value) {
-                                    return DropdownMenuItem(
-                                        value: value, child: Text(value));
-                                  }).toList(),
-                                ),
-                              ),
-                              SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.01,
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(left: 16, right: 16),
+                                  controller: phoneNo,
+                                  decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.symmetric(
+                                          vertical: 0, horizontal: 16),
+                                      hintText: 'Phone No ',
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(9))),
+                                )),
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.01,
+                            ),
+                            Container(
                                 decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: Colors.grey, width: 1),
                                     borderRadius: BorderRadius.circular(9),
                                     color: Colors.white),
-                                child: DropdownButton(
-                                  isExpanded: true,
-                                  underline: SizedBox(),
-                                  hint: Text('Select Marital Status'),
-                                  icon: Icon(Icons.arrow_drop_down_outlined),
-                                  value: maritalType,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      maritalType = value;
-                                    });
+                                child: TextFormField(
+                                  validator: (value) {
+                                    if (value.isEmpty)
+                                      return 'Enter Address';
+                                    else
+                                      return null;
+
+                                    // ignore: unrelated_type_equality_checks
                                   },
-                                  items: maritalList.map((value) {
-                                    return DropdownMenuItem(
-                                        value: value, child: Text(value));
-                                  }).toList(),
-                                ),
-                              ),
-                              SizedBox(
+                                  controller: address,
+                                  decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.symmetric(
+                                          vertical: 0, horizontal: 16),
+                                      hintText: 'Address ',
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(9))),
+                                )),
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.01,
+                            ),
+                            SizedBox(
+                                width: MediaQuery.of(context).size.width,
                                 height:
-                                    MediaQuery.of(context).size.height * 0.01,
-                              ),
-                              Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(9),
-                                      color: Colors.white),
-                                  child: TextFormField(
-                                    validator: (value) {
-                                      if (value.isEmpty)
-                                        return 'Enter Phone No';
-                                      else
-                                        return null;
-
-                                      // ignore: unrelated_type_equality_checks
-                                    },
-                                    controller: phoneNo,
-                                    decoration: InputDecoration(
-                                        contentPadding: EdgeInsets.symmetric(
-                                            vertical: 0, horizontal: 16),
-                                        hintText: 'Phone No ',
-                                        border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(9))),
-                                  )),
-                              SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.01,
-                              ),
-                              Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(9),
-                                      color: Colors.white),
-                                  child: TextFormField(
-                                    validator: (value) {
-                                      if (value.isEmpty)
-                                        return 'Enter Address';
-                                      else
-                                        return null;
-
-                                      // ignore: unrelated_type_equality_checks
-                                    },
-                                    controller: address,
-                                    decoration: InputDecoration(
-                                        contentPadding: EdgeInsets.symmetric(
-                                            vertical: 0, horizontal: 16),
-                                        hintText: 'Address ',
-                                        border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(9))),
-                                  )),
-                              SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.01,
-                              ),
-                              SizedBox(
-                                  width: MediaQuery.of(context).size.width,
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.06,
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      if (_formkey.currentState.validate()) {
-                                        if (surNameType == null &&
-                                            genderType == null) {
-                                          return ToastMsg(Colors.red,
-                                              'Please select Items');
-                                        } else {
-                                          getSellMethod1(accessToken);
-                                          Navigator.pushAndRemoveUntil(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      bottombar(0)),
-                                              (route) => false);
-                                        }
+                                    MediaQuery.of(context).size.height * 0.06,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    if (_formkey.currentState.validate()) {
+                                      if (surNameType == null &&
+                                          genderType == null) {
+                                        return ToastMsg(
+                                            Colors.red, 'Please select Items');
+                                      } else {
+                                        getSellMethod1(accessToken);
+                                        Navigator.pushAndRemoveUntil(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    bottombar(0)),
+                                            (route) => false);
                                       }
-                                    },
-                                    child: CustomeButton('Submit',
-                                        Colors.green[300], Colors.green),
-                                  ))
-                            ],
-                          ),
+                                    }
+                                  },
+                                  child: CustomeButton('Submit',
+                                      yellow.withOpacity(0.1), yellow),
+                                ))
+                          ],
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -834,7 +779,8 @@ class _AddUserState extends State<AddUser> {
   // }
 
   getSellMethod1(String accessToken) async {
-    final String apiUrl = 'https://erp.live/connector/api/user-registration';
+    final String apiUrl =
+        'https://food.erp.live/connector/api/user-registration';
 
     var splittedValue = locationType.toString().split(".")[0];
     print(splittedValue);
@@ -915,7 +861,7 @@ class _AddUserState extends State<AddUser> {
   }
 
   Future<UsersModel> getAllUsers() async {
-    final String apiUrl = 'https://erp.live/connector/api/user';
+    final String apiUrl = 'https://food.erp.live/connector/api/user';
     final response = await http.get(Uri.parse(apiUrl), headers: {
       "Authorization": "Bearer" + " $accessToken",
     });

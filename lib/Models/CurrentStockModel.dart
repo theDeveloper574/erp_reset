@@ -64,15 +64,15 @@ class Datum {
   String sku;
   String product;
   String type;
-  int productId;
+  String productId;
   String unit;
-  int enableStock;
+  String enableStock;
   String unitPrice;
   String productVariation;
   String variationName;
   String locationName;
-  int locationId;
-  int variationId;
+  String locationId;
+  String variationId;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         totalSold: json["total_sold"] == null ? null : json["total_sold"],

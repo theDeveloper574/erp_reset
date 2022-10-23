@@ -99,7 +99,7 @@ class Datum {
   });
 
   int id;
-  int businessId;
+  String businessId;
   String type;
   String supplierBusinessName;
   String name;
@@ -122,20 +122,20 @@ class Datum {
   String mobile;
   dynamic landline;
   dynamic alternateNumber;
-  int payTermNumber;
+  String payTermNumber;
   String payTermType;
   String creditLimit;
-  int createdBy;
+  String createdBy;
   dynamic convertedBy;
   dynamic convertedOn;
   String balance;
-  int totalRp;
-  int totalRpUsed;
-  int totalRpExpired;
-  int isDefault;
+  String totalRp;
+  String totalRpUsed;
+  String totalRpExpired;
+  String isDefault;
   dynamic shippingAddress;
   dynamic shippingCustomFieldDetails;
-  int isExport;
+  String isExport;
   dynamic exportCustomField1;
   dynamic exportCustomField2;
   dynamic exportCustomField3;

@@ -2,15 +2,9 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:localstore/localstore.dart';
-import 'package:makeupshop/Models/GloballyAccess.dart';
-import 'package:makeupshop/Models/ProductsModel.dart';
 import 'package:makeupshop/Models/Users.dart';
-import 'package:makeupshop/Models/searchProductModel.dart';
 
 import 'package:makeupshop/Models/todoModel.dart';
-import 'package:makeupshop/main.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 // ignore: must_be_immutable
 class ProfitLossContainer extends StatefulWidget {
@@ -29,6 +23,7 @@ class ProfitLossContainer extends StatefulWidget {
 class _ProfitLossContainerState extends State<ProfitLossContainer> {
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     final _items = <String, Todo>{};
 
     return SingleChildScrollView(

@@ -7,6 +7,7 @@ import 'package:makeupshop/Models/Users.dart';
 
 import 'package:makeupshop/Models/todoModel.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:makeupshop/style/color.dart';
 import 'package:makeupshop/widget/userDetail.dart';
 
 // ignore: must_be_immutable
@@ -26,12 +27,12 @@ class UserListContainer extends StatefulWidget {
 class _UserListContainerState extends State<UserListContainer> {
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     final _items = <String, Todo>{};
 
     return SingleChildScrollView(
       child: InkWell(
         onTap: () {
-          print('NNNNNNNNNN');
           showModalBottomSheet(
               isScrollControlled: true,
               context: context,
@@ -71,7 +72,6 @@ class _UserListContainerState extends State<UserListContainer> {
                             style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
-                              color: Colors.blue,
                             ),
                           ),
                         ],
@@ -171,17 +171,17 @@ class _UserListContainerState extends State<UserListContainer> {
                               padding: EdgeInsets.symmetric(
                                   horizontal: 8, vertical: 2),
                               decoration: BoxDecoration(
-                                  color: Colors.green[400],
+                                  color: yellow,
                                   borderRadius: BorderRadius.circular(20)),
                               child: Row(
                                 children: [
                                   Text(
                                     'Detail',
                                     style: TextStyle(
-                                        color: Colors.white, fontSize: 10),
+                                        color: Colors.white, fontSize: 15),
                                   ),
-                                  Icon(Icons.forward_outlined,
-                                      color: Colors.white)
+                                  Icon(Icons.arrow_forward,
+                                      size: 20, color: Colors.white)
                                 ],
                               ))
                         ],

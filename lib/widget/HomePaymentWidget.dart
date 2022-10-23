@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:makeupshop/Models/GloballyAccess.dart';
 
+// ignore: must_be_immutable
 class HomePayment extends StatelessWidget {
   String image;
   String text;
@@ -37,7 +37,7 @@ class HomePayment extends StatelessWidget {
           ),
           Row(
             children: [
-              Text("$currencySymbol ${totalPaidByCash ?? "0"}",
+              Text("Rs. ${totalPaidByCash ?? "0"}",
                   style: TextStyle(
                     fontSize: 18,
                     color: Color(0xff23bf5a),

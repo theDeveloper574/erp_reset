@@ -26,6 +26,7 @@ class Shipmentmap extends StatefulWidget {
 
 class _ShipmentmapState extends State<Shipmentmap> {
   UpdateSell updateSell;
+  // ignore: unused_field
   Place _place;
   // Location _location = Location();
   List shippmentStatus = [
@@ -45,14 +46,18 @@ class _ShipmentmapState extends State<Shipmentmap> {
   TextEditingController deliveredTo = TextEditingController();
   TextEditingController name = TextEditingController();
   TextEditingController amount = TextEditingController();
+  // ignore: non_constant_identifier_names
   String Address = '';
   String location = '';
 
+  // ignore: unused_field
   Position _currentPosition;
   // String _currentAddress;
+  // ignore: unused_element
   Future<Position> _getGeoLocationPosition() async {
     bool serviceEnabled;
     LocationPermission permission;
+    // ignore: unused_local_variable
     final Geolocator geolocator = Geolocator();
     // Test if location services are enabled.
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
@@ -87,6 +92,7 @@ class _ShipmentmapState extends State<Shipmentmap> {
 
   var currentLocation;
   Position position;
+  // ignore: non_constant_identifier_names
   Future<void> GetAddressFromLatLong(Position position) async {
     List<Placemark> placemarks =
         await placemarkFromCoordinates(position.latitude, position.longitude);
@@ -436,7 +442,7 @@ class _ShipmentmapState extends State<Shipmentmap> {
   Future<UpdateSell> getSellMethod1(String accessToken) async {
     // print(widget.saleId);
     // print(widget.contactId);
-    final String apiUrl = 'https://erp.live/connector/api/sell/${''}';
+    final String apiUrl = 'https://food.erp.live/connector/api/sell/${''}';
     print('AAAAAAAAAAAAAAAAAAAA');
     Map<String, String> headers = {
       "Content-Type": "application/json",

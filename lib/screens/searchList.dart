@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:makeupshop/Models/ProductsModel.dart';
 
-import 'package:makeupshop/Models/searchModel.dart';
-import 'package:makeupshop/screens/products.dart';
 import 'package:makeupshop/screens/productsseraching.dart';
 import 'package:makeupshop/widget/network.dart';
 

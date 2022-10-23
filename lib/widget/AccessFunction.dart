@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
+// ignore: missing_return
 Widget build(BuildContext context) {
+  // ignore: unused_element
   Future<bool> _onWillPop() async {
     return (await showDialog(
           context: context,

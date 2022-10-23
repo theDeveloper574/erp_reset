@@ -4,7 +4,6 @@ import 'package:makeupshop/Models/tokenModel.dart';
 import 'package:makeupshop/Models/userInfoModel.dart';
 import 'package:makeupshop/screens/BottomAppBar.dart';
 import 'package:makeupshop/screens/loginpage.dart';
-
 import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:restaurant/Screens/login.dart';
 

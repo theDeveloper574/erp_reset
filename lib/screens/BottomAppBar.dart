@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:makeupshop/Models/tokenModel.dart';
-import 'package:makeupshop/Models/userInfoModel.dart';
 import 'package:makeupshop/screens/AllSells.dart';
-import 'package:makeupshop/screens/Home.dart';
 import 'package:makeupshop/screens/Home.dart';
 import 'package:makeupshop/screens/ShippementSale.dart';
 import 'package:makeupshop/screens/cartScreen.dart';
 import 'package:makeupshop/screens/products.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:makeupshop/style/color.dart';
 
 class bottombar extends StatefulWidget {
   int index;
@@ -16,10 +13,9 @@ class bottombar extends StatefulWidget {
   bottombarState createState() => bottombarState();
 }
 
+// ignore: camel_case_types
 class bottombarState extends State<bottombar> {
-  // final _db = Localstore.instance;
-  // final _items = <String, Todo>{};
-  // StreamSubscription<Map<String, dynamic>> _subscription;
+
 
   ///
   /// current index
@@ -44,7 +40,6 @@ class bottombarState extends State<bottombar> {
 
   void initState() {
     super.initState();
-    // TODO: implement initState
     _selectedPage = widget.index;
     // isAdded = true;
 
@@ -83,7 +78,7 @@ class bottombarState extends State<bottombar> {
               topRight: Radius.circular(20),
             ),
             child: BottomNavigationBar(
-              selectedItemColor: Colors.blue,
+              selectedItemColor: appBarColor,
               unselectedItemColor: Color(0xff8D8D8D),
               backgroundColor: Colors.white,
               type: BottomNavigationBarType.fixed,
@@ -99,8 +94,12 @@ class bottombarState extends State<bottombar> {
                 ///
                 BottomNavigationBarItem(
                   icon: _selectedPage == 0
-                      ? Image.asset('asset/home_tab_active.png')
+                      ? Image.asset(
+                          'asset/home_tab_active.png',
+                          color: appBarColor,
+                        )
                       : Image.asset('asset/home_inactive.png'),
+                  // ignore: deprecated_member_use
                   title: Text(
                     "Home",
                     style: TextStyle(fontFamily: 'MEDIUM'),
@@ -112,7 +111,10 @@ class bottombarState extends State<bottombar> {
                 ///
                 BottomNavigationBarItem(
                   icon: _selectedPage == 1
-                      ? Image.asset('asset/products_tab_active.png')
+                      ? Image.asset(
+                          'asset/products_tab_active.png',
+                          color: appBarColor,
+                        )
                       : Image.asset('asset/products_tab_inactive.png'),
                   title: Text(
                     "Products",
@@ -129,7 +131,10 @@ class bottombarState extends State<bottombar> {
                     children: [
                       Container(
                         child: _selectedPage == 2
-                            ? Image.asset('asset/sales_tab_active.png')
+                            ? Image.asset(
+                                'asset/sales_tab_active.png',
+                                color: appBarColor,
+                              )
                             : Image.asset('asset/sales_tab_inactive.png'),
                       ),
                       // Positioned(
@@ -149,6 +154,7 @@ class bottombarState extends State<bottombar> {
                       //           )),
                     ],
                   ),
+                  // ignore: deprecated_member_use
                   title: Text(
                     "Sale",
                     style: TextStyle(fontFamily: 'MEDIUM'),
@@ -160,8 +166,12 @@ class bottombarState extends State<bottombar> {
                 ///
                 BottomNavigationBarItem(
                   icon: _selectedPage == 3
-                      ? Image.asset('asset/shipment_tab_active.png')
+                      ? Image.asset(
+                          'asset/shipment_tab_active.png',
+                          color: appBarColor,
+                        )
                       : Image.asset('asset/shipment_tab_inactive.png'),
+                  // ignore: deprecated_member_use
                   title: Text(
                     "Shipment",
                     style: TextStyle(fontFamily: 'MEDIUM'),
@@ -174,8 +184,12 @@ class bottombarState extends State<bottombar> {
 
                 BottomNavigationBarItem(
                   icon: _selectedPage == 4
-                      ? Image.asset('asset/cart_tab_active.png')
+                      ? Image.asset(
+                          'asset/cart_tab_active.png',
+                          color: appBarColor,
+                        )
                       : Image.asset('asset/cart_tab_inactive.png'),
+                  // ignore: deprecated_member_use
                   title: Text(
                     "Cart",
                     style: TextStyle(fontFamily: 'MEDIUM'),

@@ -18,191 +18,193 @@ class AllExpenseListView extends StatefulWidget {
 class _AllExpenseListViewState extends State<AllExpenseListView> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.85,
-      // height: MediaQuery.of(context).size.height * 0.2,
-
-      child: Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: 10,
-        ),
-        margin: EdgeInsets.only(left: 15, right: 15, bottom: 10),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Column(
-          children: [
-            SizedBox(
-              height: 7,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Status: ',
-                  style: TextStyle(
-                      fontSize: 15,
-                      color: Color(0xff5080EE),
-                      fontWeight: FontWeight.bold),
-                ),
-                widget.expenseModel.data[widget.index].paymentStatus
+    return Container(
+      padding: EdgeInsets.all(
+        10,
+      ),
+      margin: EdgeInsets.symmetric(horizontal: 15),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Column(
+        children: [
+          SizedBox(
+            height: 7,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Status: ',
+                style: TextStyle(
+                    fontSize: 15,
+                    color: Color(0xff5080EE),
+                    fontWeight: FontWeight.bold),
+              ),
+              widget.expenseModel.data[widget.index].paymentStatus
+                          .toString()
+                          .split(".")[1]
+                          .toString() ==
+                      "PAID"
+                  ? Container(
+                      decoration: BoxDecoration(
+                          color: Colors.green[400],
+                          borderRadius: BorderRadius.circular(3)),
+                      padding: EdgeInsets.all(5),
+                      child: Text(
+                        widget.expenseModel.data[widget.index].paymentStatus
                             .toString()
                             .split(".")[1]
-                            .toString() ==
-                        "PAID"
-                    ? Container(
-                        decoration: BoxDecoration(
-                            color: Colors.green[400],
-                            borderRadius: BorderRadius.circular(3)),
-                        padding: EdgeInsets.all(5),
-                        child: Text(
-                          widget.expenseModel.data[widget.index].paymentStatus
+                            .toString(),
+                        style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white),
+                      ),
+                    )
+                  : widget.expenseModel.data[widget.index].paymentStatus
                               .toString()
                               .split(".")[1]
-                              .toString(),
-                          style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white),
-                        ),
-                      )
-                    : widget.expenseModel.data[widget.index].paymentStatus
+                              .toString() ==
+                          "DUE"
+                      ? Container(
+                          decoration: BoxDecoration(
+                              color: Colors.orange[400],
+                              borderRadius: BorderRadius.circular(3)),
+                          padding: EdgeInsets.all(5),
+                          child: Text(
+                            widget.expenseModel.data[widget.index].paymentStatus
                                 .toString()
                                 .split(".")[1]
-                                .toString() ==
-                            "DUE"
-                        ? Container(
-                            decoration: BoxDecoration(
-                                color: Colors.orange[400],
-                                borderRadius: BorderRadius.circular(3)),
-                            padding: EdgeInsets.all(5),
-                            child: Text(
-                              widget
-                                  .expenseModel.data[widget.index].paymentStatus
-                                  .toString()
-                                  .split(".")[1]
-                                  .toString(),
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 17,
-                                  color: Colors.white),
-                            ),
-                          )
-                        : Container(
-                            decoration: BoxDecoration(
-                                color: Colors.purple[400],
-                                borderRadius: BorderRadius.circular(3)),
-                            padding: EdgeInsets.all(5),
-                            child: Text(
-                              widget
-                                  .expenseModel.data[widget.index].paymentStatus
-                                  .toString()
-                                  .split(".")[1]
-                                  .toString(),
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 17,
-                                  color: Colors.white),
-                            )),
-              ],
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Date',
-                  style: TextStyle(fontSize: 14),
-                ),
-                Text(
-                    DateFormat('yyyy-MM-dd hh:mm').format(
-                        widget.expenseModel.data[widget.index].transactionDate),
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ))
-              ],
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
+                                .toString(),
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 15,
+                                color: Colors.white),
+                          ),
+                        )
+                      : Container(
+                          decoration: BoxDecoration(
+                              color: Colors.purple[400],
+                              borderRadius: BorderRadius.circular(3)),
+                          padding: EdgeInsets.all(5),
+                          child: Text(
+                            widget.expenseModel.data[widget.index].paymentStatus
+                                .toString()
+                                .split(".")[1]
+                                .toString(),
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 15,
+                                color: Colors.white),
+                          )),
+            ],
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Date',
+                style: TextStyle(fontSize: 14),
+              ),
+              Text(
+                  DateFormat('yyyy-MM-dd hh:mm').format(
+                      widget.expenseModel.data[widget.index].transactionDate),
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ))
+            ],
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Text(
                   'Ref no',
                   style: TextStyle(fontSize: 14),
                 ),
-                Text(
+              ),
+              Expanded(
+                child: Text(
                   widget.expenseModel.data[widget.index].refNo.toString(),
+                  textAlign: TextAlign.end,
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                 ),
-              ],
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Location',
-                  style: TextStyle(fontSize: 14),
-                ),
-                Text(
-                  widget.expenseModel.data[widget.index].locationId.toString(),
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Total Amount',
-                  style: TextStyle(fontSize: 14),
-                ),
-                Text(
-                  widget.expenseModel.data[widget.index].finalTotal.toString(),
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Payment Due:',
-                  style: TextStyle(fontSize: 14),
-                ),
-                Text(
-                  widget.expenseModel.data[widget.index].totalBeforeTax,
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Location',
+                style: TextStyle(fontSize: 14),
+              ),
+              Text(
+                widget.expenseModel.data[widget.index].locationId.toString(),
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Total Amount',
+                style: TextStyle(fontSize: 14),
+              ),
+              Text(
+                widget.expenseModel.data[widget.index].finalTotal.toString(),
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Payment Due:',
+                style: TextStyle(fontSize: 14),
+              ),
+              Text(
+                widget.expenseModel.data[widget.index].totalBeforeTax,
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Text(
                   'Expense For:',
                   style: TextStyle(fontSize: 14),
                 ),
-                widget.expenseModel.data[widget.index].expenseFor.length == 0
-                    ? Text('')
-                    : Text(
+              ),
+              widget.expenseModel.data[widget.index].expenseFor.length == 0
+                  ? Text('')
+                  : Expanded(
+                      child: Text(
                         (widget.expenseModel.data[widget.index]
                                         .expenseFor['surname'] ??
                                     "")
@@ -216,16 +218,17 @@ class _AllExpenseListViewState extends State<AllExpenseListView> {
                                         .expenseFor['last_name'] ??
                                     "")
                                 .toString(),
+                        textAlign: TextAlign.end,
                         style: TextStyle(
                             fontSize: 14, fontWeight: FontWeight.bold),
                       ),
-              ],
-            ),
-            SizedBox(
-              height: 5,
-            ),
-          ],
-        ),
+                    ),
+            ],
+          ),
+          SizedBox(
+            height: 5,
+          ),
+        ],
       ),
     );
   }

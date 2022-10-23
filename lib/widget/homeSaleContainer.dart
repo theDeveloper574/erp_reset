@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:makeupshop/Models/ExpenseListModel.dart';
-import 'package:makeupshop/Models/GloballyAccess.dart';
 
-import '../main.dart';
-
+// ignore: must_be_immutable
 class HomeSalesContainer extends StatefulWidget {
   int numberOfSales;
   String expenseAmount;
@@ -38,13 +35,17 @@ class _HomeSalesContainerState extends State<HomeSalesContainer> {
         (double.parse((widget.salesAmount - widget.paidAmount).toString())
                 .toStringAsFixed(1))
             .toString();
+    // ignore: unused_local_variable
     final _formattedNumber = NumberFormat.compact()
         .format(double.parse(widget.numberOfSales.toString()));
+    // ignore: unused_local_variable
     final _paidAmount = NumberFormat.compact()
         .format(double.parse(widget.paidAmount.toString()));
 
+    // ignore: unused_local_variable
     final _dueAmount =
         NumberFormat.compact().format(double.parse(dueAmount.toString()));
+    // ignore: unused_local_variable
     final noOfExpenses = NumberFormat.compact()
         .format(double.parse(widget.numberOfExpense.toString()));
     final expenseAmount = NumberFormat.compact()
@@ -53,7 +54,10 @@ class _HomeSalesContainerState extends State<HomeSalesContainer> {
         .format(double.parse(widget.salesAmount.toString()));
 
     return Container(
-      margin: EdgeInsets.only(left: 15, right: 15, top: 15),
+      margin: EdgeInsets.only(
+        left: 15,
+        right: 15,
+      ),
       padding: EdgeInsets.only(top: 20, bottom: 20, left: 20, right: 20),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
@@ -70,56 +74,8 @@ class _HomeSalesContainerState extends State<HomeSalesContainer> {
                     borderRadius: BorderRadius.circular(15)),
                 child: Column(
                   children: [
-                    ///
-                    /// number of sales
-                    ///
                     Text(
-                      _formattedNumber,
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 23),
-                    ),
-
-                    ///
-                    /// number of sales text
-                    ///
-                    Text(
-                      'Number of Sale',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 15,
-                      ),
-                    )
-                  ],
-                ),
-              )),
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.02,
-              ),
-              Expanded(
-                  child: Container(
-                padding: EdgeInsets.only(top: 25, bottom: 25),
-                decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.5),
-                    borderRadius: BorderRadius.circular(15)),
-                child: Column(
-                  children: [
-                    ///
-                    /// sales amount
-                    ///
-                    // totalProductPrice == null
-                    //     ? Text(
-                    //         r'$ 0',
-                    //         style: TextStyle(
-                    //             color: Colors.white,
-                    //             fontWeight:
-                    //                 FontWeight.w600,
-                    //             fontSize: 23),
-                    //       )
-                    //     :
-                    Text(
-                      '$currencySymbol' + saleAmount,
+                      'Rs.' + saleAmount,
                       style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.w600,
@@ -130,46 +86,7 @@ class _HomeSalesContainerState extends State<HomeSalesContainer> {
                     /// sales amount text
                     ///
                     Text(
-                      'Sales Amount',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 15,
-                      ),
-                    )
-                  ],
-                ),
-              )),
-            ],
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.008,
-          ),
-          Row(
-            children: [
-              Expanded(
-                  child: Container(
-                padding: EdgeInsets.only(top: 25, bottom: 25),
-                decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.5),
-                    borderRadius: BorderRadius.circular(15)),
-                child: Column(
-                  children: [
-                    ///
-                    /// paid amount
-                    ///
-                    Text(
-                      '$currencySymbol$_paidAmount',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 23),
-                    ),
-
-                    ///
-                    /// paid amount text
-                    ///
-                    Text(
-                      'Paid Amount',
+                      'Sales',
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 15,
@@ -179,82 +96,7 @@ class _HomeSalesContainerState extends State<HomeSalesContainer> {
                 ),
               )),
               SizedBox(
-                width: MediaQuery.of(context).size.width * 0.02,
-              ),
-              Expanded(
-                  child: Container(
-                padding: EdgeInsets.only(top: 25, bottom: 25),
-                decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.5),
-                    borderRadius: BorderRadius.circular(15)),
-                child: Column(
-                  children: [
-                    ///
-                    /// due amount
-                    ///
-
-                    Text(
-                      "$currencySymbol" + _dueAmount,
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 23),
-                    ),
-
-                    ///
-                    /// due amount text
-                    ///
-                    Text(
-                      'Due Amount',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 15,
-                      ),
-                    )
-                  ],
-                ),
-              )),
-            ],
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.008,
-          ),
-          Row(
-            children: [
-              Expanded(
-                  child: Container(
-                padding: EdgeInsets.only(top: 25, bottom: 25),
-                decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.5),
-                    borderRadius: BorderRadius.circular(15)),
-                child: Column(
-                  children: [
-                    ///
-                    /// total expense
-                    ///
-                    Text(
-                      noOfExpenses.toString(),
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 23),
-                    ),
-
-                    ///
-                    /// Number of expense
-                    ///
-                    Text(
-                      'Number of Expense',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 15,
-                      ),
-                    )
-                  ],
-                ),
-              )),
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.02,
+                width: 10,
               ),
               Expanded(
                   child: Container(
@@ -265,7 +107,7 @@ class _HomeSalesContainerState extends State<HomeSalesContainer> {
                 child: Column(
                   children: [
                     Text(
-                      "$currencySymbol" + expenseAmount,
+                      "Rs." + expenseAmount,
                       style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.w600,
@@ -286,9 +128,6 @@ class _HomeSalesContainerState extends State<HomeSalesContainer> {
                 ),
               )),
             ],
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.008,
           ),
         ],
       ),

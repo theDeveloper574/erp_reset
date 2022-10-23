@@ -46,6 +46,7 @@ class _CartPlusMinuState extends State<CartPlusMinu> {
                             double.parse(newValue) - double.parse(widget.price);
                         print(
                             "this is new counter $widget.testCounter this is new Value ");
+                        // ignore: unnecessary_statements
                         widget.subTotalCountMethodMinus;
                       });
                     }

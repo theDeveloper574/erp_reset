@@ -5,6 +5,7 @@ import 'package:makeupshop/Models/tokenModel.dart';
 import 'package:makeupshop/Models/userInfoModel.dart';
 import 'package:makeupshop/api/GloballyApi.dart';
 import 'package:makeupshop/screens/BottomAppBar.dart';
+import 'package:makeupshop/style/color.dart';
 import 'package:makeupshop/widget/buttons.dart';
 import 'package:makeupshop/widget/fields.dart';
 
@@ -67,8 +68,6 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
 
     super.dispose();
   }
-
-  bool _value = false;
 
   @override
   Widget build(BuildContext context) {
@@ -167,48 +166,8 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                           ),
                         ),
                       ),
-
                       SizedBox(
-                        height: 10,
-                      ),
-
-                      ////    Remember me Button
-
-                      Row(
-                        children: [
-                          Center(
-                              child: InkWell(
-                            onTap: () {
-                              setState(() {
-                                _value = !_value;
-                              });
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                  shape: BoxShape.rectangle,
-                                  color: Colors.white),
-                              child: _value
-                                  ? Icon(Icons.check,
-                                      size: 30.0, color: Colors.blue)
-                                  : Icon(
-                                      Icons.check_box_outline_blank,
-                                      size: 30.0,
-                                      color: Colors.white,
-                                    ),
-                            ),
-                          )),
-                          Text(
-                            "   Remember me",
-                            style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 15,
-                            ),
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
+                        height: 20,
                       ),
                       InkWell(
                           onTap: () async {
@@ -239,35 +198,25 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                               } else {
                                 ToastMsg(
                                   Colors.green,
-                                  "Login SUccessfull",
+                                  "Login Ssccessfully.",
                                 );
 
-                                ///Getting User Info
                                 final String apiUrlForUserInfo =
                                     erpUrl + loggedIn;
 
-                                print("userInfoGetting method Runs");
                                 final responseInfo = await http.get(
                                     Uri.parse(apiUrlForUserInfo),
                                     headers: {
                                       "Authorization": "Bearer" +
                                           " ${tokenModel.accessToken}",
                                     });
-                                print(responseInfo.statusCode);
-                                print(responseInfo);
-                                print('Header Response');
-                                print(responseInfo.headers);
-                                print('Body Resonse');
-                                print(responseInfo.body);
-                                print("++++++++111111111");
-                                // print(tokenModel.accessToken);
+
                                 accessToken = tokenModel.accessToken;
-                                print('$accessToken');
+
                                 if (responseInfo.statusCode == 200) {
                                   final UserInfoModel info =
                                       userInfoModelFromJson(responseInfo.body);
-                                  print("***this is UserId********");
-                                  print(info.data.id.toString());
+
                                   userId = info.data.id;
                                   int userID = info.data.id;
                                   SharedPreferences sharedPreferences =
@@ -286,7 +235,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                                         userInfoModel.data.lastName.toString();
                                     userId = userInfoModel.data.id;
                                     status = userInfoModel.data.status;
-                                    print('print user Name $userName');
+
                                     sharedPreferences
                                         .setString('lastname', lastName)
                                         .toString();
@@ -297,8 +246,6 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                                     sharedPreferences
                                         .setInt('userId', userInfoModel.data.id)
                                         .toString();
-                                    print(userInfoModel.data.firstName);
-                                    print("Nameeeeeee");
                                     // onPress(accessToken);
                                   });
                                 } else {
@@ -312,20 +259,10 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                               }
                             }
                           },
-                          child: CustomeButton('Login',
-                              Colors.blueAccent.withOpacity(0.5), Colors.blue)),
+                          child: CustomeButton('Login', yellow.withOpacity(0.1), yellow)),
                       SizedBox(
                         height: 10,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Text(
-                            "English",
-                          ),
-                          Icon(Icons.keyboard_arrow_down)
-                        ],
-                      )
                     ],
                   ),
                 ),
@@ -345,7 +282,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
     final response = await http.post(Uri.parse(apiUrl), body: {
       "grant_type": "password",
       'client_id': "3",
-      'client_secret': "ts0m7lL7wt9WwJA3klo8dTMwrU72GrOoOoijwYvQ",
+      'client_secret': "vGU2tMaoQAsSvuubb8jQoa4zKkJJx6YiV8tvKpth",
       'username': userName,
       'password': password,
       'scope': "",
@@ -395,10 +332,6 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
       currencySymbol = _getBusinessDetail.data.currency.symbol ?? "";
       // print(_getBusinessDetail.data.currency.symbol);
       // print(_getBusinessDetail.data.currency.id.toString());
-      print(currencySymbol);
-      print(currencySymbol);
-      print(currencySymbol);
-      print(currencySymbol);
 
       // Navigator.push(context, MaterialPageRoute(builder: (_)=>Home(_tokenModel)));
     }
@@ -406,7 +339,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
 
   Future<GetBusinessDetail> getSellMethod(String accessToken) async {
     final String locationApiUrl =
-        'https://erp.live/connector/api/business-details';
+        'https://food.erp.live/connector/api/business-details';
 
     print("GetSellMethod RUnssss");
     print("++++++++++++++_____________+++++++++++++++");

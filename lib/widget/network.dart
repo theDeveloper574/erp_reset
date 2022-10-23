@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:makeupshop/Models/ProductsModel.dart';
 
-import 'package:makeupshop/Models/searchModel.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
@@ -13,7 +12,7 @@ List<ProductsModel> parsePost(String responsebody) {
 
 Future<List<ProductsModel>> fetchPost() async {
   final response =
-      await http.get(Uri.parse('https://erp.live/connector/api/product'));
+      await http.get(Uri.parse('https://food.erp.live/connector/api/product'));
 
   print(response.statusCode);
 

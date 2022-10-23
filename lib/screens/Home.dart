@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:makeupshop/Models/ExpenseListModel.dart';
 import 'package:makeupshop/Models/GloballyAccess.dart';
 import 'package:makeupshop/Models/sellModel.dart';
+import 'package:makeupshop/style/color.dart';
 
 import 'package:makeupshop/widget/MyDrawer.dart';
 import 'package:makeupshop/widget/homeSaleContainer.dart';
@@ -88,6 +89,7 @@ class _HomeState extends State<Home> {
   /// side menu or slider key
   ///
   final GlobalKey<ScaffoldState> _scaffold = GlobalKey<ScaffoldState>();
+  // ignore: unused_field
   final _formattedNumber = NumberFormat.compact().format(1000000);
   int currentPage = 1;
   int salecurrentPage = 1;
@@ -127,14 +129,14 @@ class _HomeState extends State<Home> {
                   onPressed: () => Navigator.of(context).pop(false),
                   child: new Text(
                     'No',
-                    style: TextStyle(color: Color(0xff031344)),
+                    style: TextStyle(color: appBarColor),
                   ),
                 ),
                 TextButton(
                   onPressed: () => exit(0),
                   child: new Text(
                     'Yes',
-                    style: TextStyle(color: Color(0xff031344)),
+                    style: TextStyle(color: appBarColor),
                   ),
                 ),
               ],
@@ -152,14 +154,14 @@ class _HomeState extends State<Home> {
         /// side menu
         ///
         drawer: BuildMyDrawer(),
-        backgroundColor: Color(0xff031344),
+        backgroundColor: appBarColor,
 
         ///
         /// app bar
         ///
         appBar: AppBar(
           elevation: 0.0,
-          backgroundColor: Color(0xff031344),
+          backgroundColor: appBarColor,
           leading: InkWell(
               onTap: () {
                 ///
@@ -185,13 +187,7 @@ class _HomeState extends State<Home> {
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           decoration: BoxDecoration(
-              color: Colors.white,
-              image: DecorationImage(
-                fit: BoxFit.fill,
-                image: AssetImage(
-                  'asset/bgColor.png',
-                ),
-              ),
+              color: background,
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(25), topRight: Radius.circular(25))),
           child: SingleChildScrollView(
@@ -218,7 +214,7 @@ class _HomeState extends State<Home> {
                                 /// user profile image
                                 ///
                                 backgroundImage: AssetImage(
-                                  'asset/user_thum_menu.png',
+                                  'asset/user1.jpg',
                                 ),
                                 backgroundColor: Colors.white,
                               ),
@@ -255,13 +251,6 @@ class _HomeState extends State<Home> {
                                     fontSize: 17.1,
                                     fontWeight: FontWeight.w600),
                               )
-                              //  Text(
-                              //     '${userName}',
-                              //     style: TextStyle(
-                              //         color: Colors.black,
-                              //         fontSize: 17.1,
-                              //         fontWeight: FontWeight.w600),
-                              //   )
                             ],
                           ),
                         ),
@@ -273,9 +262,12 @@ class _HomeState extends State<Home> {
                                 horizontal: 10, vertical: 6),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(12),
-                              color: Colors.green[400],
+                              color: blue,
                             ),
-                            child: Text(status ?? "")),
+                            child: Text(
+                              status ?? "",
+                              style: TextStyle(color: Colors.white),
+                            )),
                       )
                     ],
                   ),
@@ -343,8 +335,7 @@ class _HomeState extends State<Home> {
                                       child: Text(
                                         'Today',
                                         textAlign: TextAlign.center,
-                                        style:
-                                            TextStyle(color: Color(0xff031344)),
+                                        style: TextStyle(color: appBarColor),
                                       ),
                                     )
                                   : Container(
@@ -355,7 +346,7 @@ class _HomeState extends State<Home> {
                                           horizontal: 20, vertical: 8),
                                       // padding: EdgeInsets.all(8),
                                       decoration: BoxDecoration(
-                                          color: Color(0xff031344),
+                                          color: appBarColor,
                                           borderRadius:
                                               BorderRadius.circular(7)),
                                       child: Text(
@@ -400,8 +391,7 @@ class _HomeState extends State<Home> {
                                         child: Text(
                                           'Yesterday',
                                           textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              color: Color(0xff031344)),
+                                          style: TextStyle(color: appBarColor),
                                         ),
                                       )
                                     : Container(
@@ -410,7 +400,7 @@ class _HomeState extends State<Home> {
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 20, vertical: 8),
                                         decoration: BoxDecoration(
-                                            color: Color(0xff031344),
+                                            color: appBarColor,
                                             borderRadius:
                                                 BorderRadius.circular(7)),
                                         child: Text(
@@ -453,8 +443,7 @@ class _HomeState extends State<Home> {
                                         child: Text(
                                           'Last 7 days',
                                           textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              color: Color(0xff031344)),
+                                          style: TextStyle(color: appBarColor),
                                         ),
                                       )
                                     : Container(
@@ -463,7 +452,7 @@ class _HomeState extends State<Home> {
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 20, vertical: 8),
                                         decoration: BoxDecoration(
-                                            color: Color(0xff031344),
+                                            color: appBarColor,
                                             borderRadius:
                                                 BorderRadius.circular(7)),
                                         child: Text(
@@ -506,7 +495,7 @@ class _HomeState extends State<Home> {
                                         child: Text(
                                           'Last 30 Day',
                                           textAlign: TextAlign.center,
-                                          style: TextStyle(color: Colors.black),
+                                          style: TextStyle(color: appBarColor),
                                         ),
                                       )
                                     : Container(
@@ -515,7 +504,7 @@ class _HomeState extends State<Home> {
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 20, vertical: 8),
                                         decoration: BoxDecoration(
-                                            color: Color(0xff031344),
+                                            color: appBarColor,
                                             borderRadius:
                                                 BorderRadius.circular(7)),
                                         child: Text(
@@ -552,7 +541,7 @@ class _HomeState extends State<Home> {
                                       padding: EdgeInsets.symmetric(
                                           horizontal: 20, vertical: 8),
                                       decoration: BoxDecoration(
-                                          color: Color(0xff031344),
+                                          color: appBarColor,
                                           borderRadius:
                                               BorderRadius.circular(7)),
                                       child: Text(
@@ -573,8 +562,7 @@ class _HomeState extends State<Home> {
                                       child: Text(
                                         'All',
                                         textAlign: TextAlign.center,
-                                        style:
-                                            TextStyle(color: Color(0xff031344)),
+                                        style: TextStyle(color: appBarColor),
                                       ),
                                     ),
                             ),
@@ -675,10 +663,10 @@ class _HomeState extends State<Home> {
 
   Future<SellModel> SalesProduct(int currentPage) async {
     final String apiUrl =
-        'https://erp.live/connector/api/sell?page=$currentPage';
+        'https://food.erp.live/connector/api/sell?page=$currentPage';
     final response = await http.get(
       Uri.parse(apiUrl),
-      headers: {"Authorization": "Bearer" + " ${accessToken}"},
+      headers: {"Authorization": "Bearer" + " $accessToken"},
     );
 
     if (response.statusCode == 200) {
@@ -875,10 +863,10 @@ class _HomeState extends State<Home> {
   }
 
   Future<SellModel> getAllSalesProduct() async {
-    final String apiUrl = 'https://erp.live/connector/api/sell';
+    final String apiUrl = 'https://food.erp.live/connector/api/sell';
     final response = await http.get(
       Uri.parse(apiUrl),
-      headers: {"Authorization": "Bearer" + " ${accessToken}"},
+      headers: {"Authorization": "Bearer" + " $accessToken"},
     );
 
     if (response.statusCode == 200) {
@@ -960,6 +948,7 @@ class _HomeState extends State<Home> {
               nowdate.hour,
               nowdate.minute,
               nowdate.second);
+          // ignore: unused_local_variable
           var todayExpense = new DateTime(nowdate.year, nowdate.month,
               nowdate.day, nowdate.hour, nowdate.minute, nowdate.second);
 
@@ -1014,7 +1003,7 @@ class _HomeState extends State<Home> {
   }
 
   Future<ExpenseList> getAllExpense() async {
-    final String apiUrl = 'https://erp.live/connector/api/expense';
+    final String apiUrl = 'https://food.erp.live/connector/api/expense';
     final response = await http.get(Uri.parse(apiUrl), headers: {
       "Authorization": "Bearer" + " $accessToken",
     });
@@ -1033,7 +1022,7 @@ class _HomeState extends State<Home> {
 
   Future<ExpenseList> getExpense(int currentPage) async {
     final String apiUrl =
-        'https://erp.live/connector/api/expense?page=$currentPage';
+        'https://food.erp.live/connector/api/expense?page=$currentPage';
     final response = await http.get(Uri.parse(apiUrl), headers: {
       "Authorization": "Bearer" + " $accessToken",
     });

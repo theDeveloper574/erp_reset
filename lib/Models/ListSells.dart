@@ -170,19 +170,19 @@ class Datum {
   });
 
   int id;
-  int businessId;
-  int locationId;
-  int resTableId;
-  int resWaiterId;
+  String businessId;
+  String locationId;
+  String resTableId;
+  String resWaiterId;
   dynamic resOrderStatus;
   String type;
   dynamic subType;
   String status;
   String subStatus;
-  int isQuotation;
+  String isQuotation;
   String paymentStatus;
   dynamic adjustmentType;
-  int contactId;
+  String contactId;
   dynamic customerGroupId;
   String invoiceNo;
   String refNo;
@@ -195,7 +195,7 @@ class Datum {
   String taxAmount;
   String discountType;
   String discountAmount;
-  int rpRedeemed;
+  String rpRedeemed;
   String rpRedeemedAmount;
   dynamic shippingDetails;
   dynamic shippingAddress;
@@ -209,7 +209,7 @@ class Datum {
   dynamic shippingCustomField5;
   String additionalNotes;
   String staffNote;
-  int isExport;
+  String isExport;
   dynamic exportCustomFieldsInfo;
   String roundOffAmount;
   dynamic additionalExpenseKey1;
@@ -224,17 +224,17 @@ class Datum {
   dynamic expenseCategoryId;
   dynamic expenseSubCategoryId;
   dynamic expenseFor;
-  int commissionAgent;
+  String commissionAgent;
   dynamic document;
-  int isDirectSale;
-  int isSuspend;
+  String isDirectSale;
+  String isSuspend;
   String exchangeRate;
   dynamic totalAmountRecovered;
   dynamic transferParentId;
   dynamic returnParentId;
   dynamic openingStockProductId;
-  int createdBy;
-  int crmIsOrderRequest;
+  String createdBy;
+  String crmIsOrderRequest;
   dynamic preferPaymentMethod;
   dynamic preferPaymentAccount;
   dynamic salesOrderIds;
@@ -256,10 +256,10 @@ class Datum {
   dynamic repairSecurityPattern;
   dynamic repairDueDate;
   dynamic repairDeviceId;
-  int repairUpdatesNotif;
+  String repairUpdatesNotif;
   dynamic importBatch;
   dynamic importTime;
-  int typesOfServiceId;
+  String typesOfServiceId;
   String packingCharge;
   dynamic packingChargeType;
   String serviceCustomField1;
@@ -278,22 +278,22 @@ class Datum {
   dynamic mfgWastedUnits;
   String mfgProductionCost;
   String mfgProductionCostType;
-  int mfgIsFinal;
-  int isCreatedFromApi;
-  int rpEarned;
+  String mfgIsFinal;
+  String isCreatedFromApi;
+  String rpEarned;
   dynamic orderAddresses;
-  int isRecurring;
-  int recurInterval;
+  String isRecurring;
+  String recurInterval;
   String recurIntervalType;
-  int recurRepetitions;
+  String recurRepetitions;
   dynamic recurStoppedOn;
   dynamic recurParentId;
   String invoiceToken;
-  int payTermNumber;
+  String payTermNumber;
   String payTermType;
   dynamic pjtProjectId;
   dynamic pjtTitle;
-  int sellingPriceGroupId;
+  String sellingPriceGroupId;
   dynamic drCr;
   DateTime createdAt;
   DateTime updatedAt;
@@ -669,7 +669,7 @@ class Contact {
   });
 
   int id;
-  int businessId;
+  String businessId;
   String type;
   String supplierBusinessName;
   String name;
@@ -692,20 +692,20 @@ class Contact {
   String mobile;
   dynamic landline;
   dynamic alternateNumber;
-  int payTermNumber;
+  String payTermNumber;
   String payTermType;
   dynamic creditLimit;
-  int createdBy;
+  String createdBy;
   dynamic convertedBy;
   dynamic convertedOn;
   String balance;
-  int totalRp;
-  int totalRpUsed;
-  int totalRpExpired;
-  int isDefault;
+  String totalRp;
+  String totalRpUsed;
+  String totalRpExpired;
+  String isDefault;
   dynamic shippingAddress;
   dynamic shippingCustomFieldDetails;
-  int isExport;
+  String isExport;
   dynamic exportCustomField1;
   dynamic exportCustomField2;
   dynamic exportCustomField3;
@@ -898,9 +898,9 @@ class PaymentLine {
   });
 
   int id;
-  int transactionId;
-  int businessId;
-  int isReturn;
+  String transactionId;
+  String businessId;
+  String isReturn;
   String amount;
   Method method;
   dynamic transactionNo;
@@ -914,16 +914,16 @@ class PaymentLine {
   String chequeNumber;
   String bankAccountNumber;
   DateTime paidOn;
-  int createdBy;
-  int paidThroughLink;
+  String createdBy;
+  String paidThroughLink;
   dynamic gateway;
-  int isAdvance;
-  int paymentFor;
+  String isAdvance;
+  String paymentFor;
   dynamic parentId;
   String note;
   dynamic document;
   String paymentRefNo;
-  int accountId;
+  String accountId;
   dynamic drCr;
   DateTime createdAt;
   DateTime updatedAt;
@@ -1041,9 +1041,9 @@ class SellLine {
   });
 
   int id;
-  int transactionId;
-  int productId;
-  int variationId;
+  String transactionId;
+  String productId;
+  String variationId;
   int quantity;
   String mfgWastePercent;
   dynamic mfgIngredientGroupId;
@@ -1175,7 +1175,7 @@ class Meta {
   int from;
   int lastPage;
   String path;
-  int perPage;
+  String perPage;
   int to;
   int total;
 
@@ -1184,7 +1184,7 @@ class Meta {
         from: json["from"],
         lastPage: json["last_page"],
         path: json["path"],
-        perPage: json["per_page"],
+        perPage: json["per_page"].toString(),
         to: json["to"],
         total: json["total"],
       );

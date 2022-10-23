@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:makeupshop/Models/ExpenseListModel.dart';
 import 'package:makeupshop/Models/GloballyAccess.dart';
+import 'package:makeupshop/style/color.dart';
 
 import 'package:makeupshop/widget/ExpenseListModel.dart';
 
@@ -25,6 +26,7 @@ class _ExpenseRefundState extends State<ExpenseRefund> {
 
   var responseString;
   // List status = [];
+  // ignore: unused_field
   var _statusList = ['All'];
   Object _itemValforLocation;
   List sortData = ['All', 'paid', 'due', 'partial'];
@@ -50,288 +52,245 @@ class _ExpenseRefundState extends State<ExpenseRefund> {
     return Scaffold(
       key: _scaffold,
       drawer: BuildMyDrawer(),
-      body: SafeArea(
-        child: Container(
-          color: Color(0xff031344),
-          child: Column(
-            children: [
-              SizedBox(
-                height: 10,
+      appBar: AppBar(
+        elevation: 0.0,
+        backgroundColor: appBarColor,
+        title: Text('Refund Expense'),
+        leading: InkWell(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Icon(Icons.arrow_back)),
+        actions: [
+          Container(
+            padding: EdgeInsets.only(right: 10),
+            width: 100,
+            child: DropdownButton(
+              isExpanded: true,
+              underline: SizedBox(),
+              hint: Text(
+                'Status',
+                style: TextStyle(color: Colors.white, fontSize: 17),
               ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 13),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              icon: Icon(
+                Icons.paid,
+                color: Colors.white,
+              ),
+              value: _itemValforLocation,
+              onChanged: (value) {
+                setState(() {
+                  _itemValforLocation = value;
+                  isstatus = true;
+                  // isSearch = true;
+                });
+              },
+              items: sortData.map((value) {
+                return DropdownMenuItem(
+                    value: value,
+                    child: Text(
+                      value.toString(),
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        color: Colors.red,
+                        fontSize: 17,
+                      ),
+                    ));
+              }).toList(),
+            ),
+          )
+        ],
+      ),
+      body: Container(
+        color: appBarColor,
+        child: Column(
+          children: [
+            Expanded(
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                decoration: BoxDecoration(
+                    color: background,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(24),
+                        topRight: Radius.circular(24))),
+                child: Column(
                   children: [
-                    Row(
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            setState(() {
-                              Navigator.pop(context, false);
-                            });
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(15)),
-                            child: Icon(
-                              Icons.arrow_back_sharp,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 9,
-                        ),
-                        Text('Expense Refund',
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 20)),
-                      ],
+                    SizedBox(
+                      height: 15,
                     ),
-                    Row(
-                      children: [
-                        Container(
-                          width: 100,
-                          child: DropdownButton(
-                            isExpanded: true,
-                            underline: SizedBox(),
-                            hint: Text(
-                              'Status',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 17),
-                            ),
-                            icon: Icon(
-                              Icons.paid,
-                              color: Colors.white,
-                            ),
-                            value: _itemValforLocation,
-                            onChanged: (value) {
-                              setState(() {
-                                _itemValforLocation = value;
-                                isstatus = true;
-                                // isSearch = true;
-                              });
-                            },
-                            items: sortData.map((value) {
-                              return DropdownMenuItem(
-                                  value: value,
-                                  child: Text(
-                                    value.toString(),
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      color: Colors.red,
-                                      fontSize: 17,
-                                    ),
-                                  ));
-                            }).toList(),
+                    Container(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.05,
                           ),
-                        )
-                      ],
-                    )
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Expanded(
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage('asset/bgColor.png'),
-                          fit: BoxFit.fill),
-                      color: Colors.white.withOpacity(0.9),
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(24),
-                          topRight: Radius.circular(24))),
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: 15,
+                        ],
                       ),
-                      Container(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.05,
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.02,
-                      ),
-                      _expenseList == null
-                          ? Center(
-                              child: CircularProgressIndicator(),
-                            )
-                          : isstatus
-                              ? Expanded(
-                                  child: Container(
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.2,
-                                      child: ListView.builder(
-                                          // physics: NeverScrollableScrollPhysics(),
-                                          scrollDirection: Axis.vertical,
-                                          itemCount: _expenseList.data.length,
-                                          // ignore: missing_return
-                                          itemBuilder: (context, index) {
-                                            for (int j = 0;
-                                                j <=
-                                                    _expenseList.data.length -
-                                                        1;
-                                                j++) {
-                                              if (_itemValforLocation
-                                                      .toString() ==
-                                                  'All') {
-                                                return AllExpenseListView(
-                                                    expenseModel: _expenseList,
-                                                    index: index);
-                                              }
-                                              if (_itemValforLocation
-                                                      .toString()
-                                                      .toLowerCase() ==
-                                                  _expenseList
-                                                      .data[index].paymentStatus
-                                                      .toString()
-                                                      .split(".")[1]
-                                                      .toLowerCase()) {
-                                                return AllExpenseListView(
-                                                    expenseModel: _expenseList,
-                                                    index: index);
-                                              }
-                                            }
-
-                                            return Container();
-                                          })),
-                                )
-                              : Expanded(
-                                  child: Container(
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.2,
-                                      child: ListView.builder(
-                                          itemCount: _expenseList.data.length,
-                                          // ignore: missing_return
-                                          itemBuilder: (context, index) {
-                                            for (int j = 0;
-                                                j < _expenseList.data.length;
-                                                j++) {
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.02,
+                    ),
+                    _expenseList == null
+                        ? Center(
+                            child: CircularProgressIndicator(),
+                          )
+                        : isstatus
+                            ? Expanded(
+                                child: Container(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.2,
+                                    child: ListView.builder(
+                                        // physics: NeverScrollableScrollPhysics(),
+                                        scrollDirection: Axis.vertical,
+                                        itemCount: _expenseList.data.length,
+                                        // ignore: missing_return
+                                        itemBuilder: (context, index) {
+                                          for (int j = 0;
+                                              j <= _expenseList.data.length - 1;
+                                              j++) {
+                                            if (_itemValforLocation
+                                                    .toString() ==
+                                                'All') {
                                               return AllExpenseListView(
                                                   expenseModel: _expenseList,
                                                   index: index);
                                             }
-                                          })),
+                                            if (_itemValforLocation
+                                                    .toString()
+                                                    .toLowerCase() ==
+                                                _expenseList
+                                                    .data[index].paymentStatus
+                                                    .toString()
+                                                    .split(".")[1]
+                                                    .toLowerCase()) {
+                                              return AllExpenseListView(
+                                                  expenseModel: _expenseList,
+                                                  index: index);
+                                            }
+                                          }
+
+                                          return Container();
+                                        })),
+                              )
+                            : Expanded(
+                                child: Container(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.2,
+                                    child: ListView.builder(
+                                        itemCount: _expenseList.data.length,
+                                        // ignore: missing_return
+                                        itemBuilder: (context, index) {
+                                          for (int j = 0;
+                                              j < _expenseList.data.length;
+                                              j++) {
+                                            return AllExpenseListView(
+                                                expenseModel: _expenseList,
+                                                index: index);
+                                          }
+                                        })),
+                              ),
+                    // Expanded(
+                    //         child: Container(
+                    //           height:
+                    //               MediaQuery.of(context).size.height *
+                    //                   0.2,
+                    //           child: ListView.builder(
+                    //             scrollDirection: Axis.vertical,
+                    //             itemCount: _expenseList.data.length,
+                    //             // ignore: missing_return
+                    //             itemBuilder: (context, index) {
+                    //               for (int i = 0;
+                    //                   i <=
+                    //                       _expenseList.data.length -
+                    //                           1;
+                    //                   i++) {
+                    //                 if (_expenseList
+                    //                         .data[index].paymentStatus
+                    //                         .toString() ==
+                    //                     _itemStatus.toString()) {
+                    //                   return AllExpenseListView(
+                    //                       expenseModel: _expenseList,
+                    //                       index: index);
+                    //                 }
+                    //               }
+                    //             },
+                    //           ),
+                    //         ),
+                    //       )
+                    //     : Container()
+                    SizedBox(
+                      height: 20,
+                    ),
+                    _expenseList == null
+                        ? Container()
+                        : Container(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    if (currentPage > 1) {
+                                      setState(() {
+                                        currentPage = currentPage - 1;
+                                      });
+                                    }
+                                    onPress(accessToken);
+                                  },
+                                  child: Container(
+                                    margin: EdgeInsets.only(right: 5),
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 8, vertical: 5),
+                                    decoration: BoxDecoration(
+                                        color: yellow,
+                                        borderRadius: BorderRadius.circular(5)),
+                                    child: Text(
+                                      '<',
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 20),
+                                    ),
+                                  ),
                                 ),
-                      // Expanded(
-                      //         child: Container(
-                      //           height:
-                      //               MediaQuery.of(context).size.height *
-                      //                   0.2,
-                      //           child: ListView.builder(
-                      //             scrollDirection: Axis.vertical,
-                      //             itemCount: _expenseList.data.length,
-                      //             // ignore: missing_return
-                      //             itemBuilder: (context, index) {
-                      //               for (int i = 0;
-                      //                   i <=
-                      //                       _expenseList.data.length -
-                      //                           1;
-                      //                   i++) {
-                      //                 if (_expenseList
-                      //                         .data[index].paymentStatus
-                      //                         .toString() ==
-                      //                     _itemStatus.toString()) {
-                      //                   return AllExpenseListView(
-                      //                       expenseModel: _expenseList,
-                      //                       index: index);
-                      //                 }
-                      //               }
-                      //             },
-                      //           ),
-                      //         ),
-                      //       )
-                      //     : Container()
-                      SizedBox(
-                        height: 20,
-                      ),
-                      _expenseList == null
-                          ? Container()
-                          : Container(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  InkWell(
-                                    onTap: () {
-                                      if (currentPage > 1) {
-                                        setState(() {
-                                          currentPage = currentPage - 1;
-                                        });
-                                      }
+                                Text(
+                                  currentPage.toString(),
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: 20),
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    if (currentPage <
+                                        _expenseList.meta.lastPage) {
+                                      setState(() {
+                                        currentPage = currentPage + 1;
+                                      });
                                       onPress(accessToken);
-                                    },
-                                    child: Container(
-                                      margin: EdgeInsets.only(right: 5),
+                                    }
+                                  },
+                                  child: Container(
+                                      margin: EdgeInsets.only(left: 5),
                                       padding: EdgeInsets.symmetric(
                                           horizontal: 8, vertical: 5),
                                       decoration: BoxDecoration(
-                                          color: Color(0xff031344),
+                                          color: yellow,
                                           borderRadius:
                                               BorderRadius.circular(5)),
                                       child: Text(
-                                        '<',
+                                        '>',
                                         style: TextStyle(
                                             color: Colors.white, fontSize: 20),
-                                      ),
-                                    ),
-                                  ),
-                                  Text(
-                                    currentPage.toString(),
-                                    style: TextStyle(
-                                        color: Colors.black, fontSize: 20),
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      if (currentPage <
-                                          _expenseList.meta.lastPage) {
-                                        setState(() {
-                                          currentPage = currentPage + 1;
-                                        });
-                                        onPress(accessToken);
-                                      }
-                                    },
-                                    child: Container(
-                                        margin: EdgeInsets.only(left: 5),
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 8, vertical: 5),
-                                        decoration: BoxDecoration(
-                                            color: Color(0xff031344),
-                                            borderRadius:
-                                                BorderRadius.circular(5)),
-                                        child: Text(
-                                          '>',
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 20),
-                                        )),
-                                  )
-                                ],
-                              ),
+                                      )),
+                                )
+                              ],
                             ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                    ],
-                  ),
+                          ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -374,7 +333,7 @@ class _ExpenseRefundState extends State<ExpenseRefund> {
     print('PPPPPPPPPPPPPPPPPPPPPPP');
     print(userID);
     final String apiUrl =
-        'https://erp.live/connector/api/expense-refund?page=$currentPage';
+        'https://food.erp.live/connector/api/expense-refund?page=$currentPage';
 
     print("GetSellMethod RUnssss");
     print("++++++++++++++_____________+++++++++++++++");

@@ -60,7 +60,7 @@ class Datum {
   });
 
   int id;
-  int businessId;
+  String businessId;
   String locationId;
   String name;
   String landmark;
@@ -68,11 +68,11 @@ class Datum {
   String state;
   String city;
   String zipCode;
-  int invoiceSchemeId;
-  int invoiceLayoutId;
-  int saleInvoiceLayoutId;
+  String invoiceSchemeId;
+  String invoiceLayoutId;
+  String saleInvoiceLayoutId;
   dynamic sellingPriceGroupId;
-  int printReceiptOnInvoice;
+  String printReceiptOnInvoice;
   String receiptPrinterType;
   dynamic printerId;
   String mobile;
@@ -80,7 +80,7 @@ class Datum {
   String email;
   dynamic website;
   dynamic featuredProducts;
-  int isActive;
+  String isActive;
   dynamic customField1;
   dynamic customField2;
   dynamic customField3;

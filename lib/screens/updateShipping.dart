@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:makeupshop/screens/BottomAppBar.dart';
-// import 'package:location/location.dart';
-import 'package:search_map_place/search_map_place.dart';
 
 import 'package:makeupshop/Models/GloballyAccess.dart';
 import 'package:makeupshop/Models/updateSellModel.dart';
@@ -178,7 +176,7 @@ class _UpdateShipmentState extends State<UpdateShipment> {
 
   Future<void> getSellMethod1(String accessToken) async {
     final String apiUrl =
-        'https://erp.live/connector/api/update-shipping-status';
+        'https://food.erp.live/connector/api/update-shipping-status';
 
     Map<String, String> headers = {
       "Content-Type": "application/json",

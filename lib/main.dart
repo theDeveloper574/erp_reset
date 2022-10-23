@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-
-// import 'package:makeupshop/Models/hiveModel.dart';
 import 'package:makeupshop/screens/splash.dart';
 
 void main() async {
@@ -30,7 +28,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'POS PITS',
+      title: 'POS Food',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),

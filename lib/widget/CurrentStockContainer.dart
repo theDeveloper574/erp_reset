@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:makeupshop/Models/CurrentStockModel.dart';
 
-import 'package:makeupshop/Models/Users.dart';
 
 import 'package:makeupshop/Models/todoModel.dart';
 
@@ -25,11 +24,12 @@ class CurrentStockContainer extends StatefulWidget {
 class _CurrentStockContainerState extends State<CurrentStockContainer> {
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     final _items = <String, Todo>{};
 
     return SingleChildScrollView(
       child: Container(
-          margin: EdgeInsets.all(5),
+          margin: EdgeInsets.symmetric(vertical: 5),
           padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),

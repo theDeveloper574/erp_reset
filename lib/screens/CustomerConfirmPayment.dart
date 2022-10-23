@@ -274,7 +274,7 @@ class _ConfirmCustomerPaymentState extends State<ConfirmCustomerPayment> {
   }
 
   Future<ContactPaymentModel> getSellMethod1(String accessToken) async {
-    final String apiUrl = 'https://erp.live/connector/api/contactapi-payment';
+    final String apiUrl = 'https://food.erp.live/connector/api/contactapi-payment';
 
     print("GetSellMethod RUnssss");
     print("++++++++++++++_____________+++++++++++++++");

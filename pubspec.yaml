@@ -61,7 +61,13 @@ dependencies:
   sqflite: 
   path_provider:
   dropdownfield: ^1.0.3
-  intl: 
+  intl:
+  basic_utils:
+  searchfield: ^0.5.6
+  multiselect: ^0.0.4
+  # share: ^2.0.4
+  # flutter_sms: ^2.3.2
+  # flutter_mailer: ^2.0.1
   # location: 
   
 flutter_icons:

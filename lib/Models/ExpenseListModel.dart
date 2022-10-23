@@ -60,8 +60,8 @@ class Datum {
   });
 
   int id;
-  int businessId;
-  int locationId;
+  String businessId;
+  String locationId;
   PaymentStatus paymentStatus;
   String refNo;
   DateTime transactionDate;
@@ -71,14 +71,14 @@ class Datum {
   String finalTotal;
   dynamic expenseCategoryId;
   dynamic document;
-  int createdBy;
+  String createdBy;
   DateTime createdAt;
   DateTime updatedAt;
   dynamic expenseFor;
-  int isRecurring;
-  int recurInterval;
+  String isRecurring;
+  String recurInterval;
   String recurIntervalType;
-  int recurRepetitions;
+  String recurRepetitions;
   dynamic recurStoppedOn;
   dynamic recurParentId;
 
@@ -99,7 +99,7 @@ class Datum {
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
         expenseFor: json["expense_for"],
-        isRecurring: json["is_recurring"],
+        isRecurring: json["is_recurring"].toString(),
         recurInterval:
             json["recur_interval"] == null ? null : json["recur_interval"],
         recurIntervalType: json["recur_interval_type"] == null
@@ -203,9 +203,9 @@ class ExpenseForClass {
   String language;
   dynamic contactNo;
   dynamic address;
-  int businessId;
+  String businessId;
   dynamic maxSalesDiscountPercent;
-  int allowLogin;
+  String allowLogin;
   dynamic essentialsDepartmentId;
   dynamic essentialsDesignationId;
   dynamic essentialsSalary;
@@ -213,9 +213,9 @@ class ExpenseForClass {
   dynamic essentialsPayCycle;
   String status;
   dynamic crmContactId;
-  int isCmmsnAgnt;
+  String isCmmsnAgnt;
   String cmmsnPercent;
-  int selectedContacts;
+  String selectedContacts;
   dynamic dob;
   dynamic gender;
   dynamic maritalStatus;

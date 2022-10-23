@@ -11,3 +11,11 @@ Future<void> saveAndLaunchFile(List<int> bytes, String fileName) async {
   await file.writeAsBytes(bytes, flush: true);
   OpenFile.open('$path/$fileName');
 }
+Future<void> exportFile(List<int> bytes, String fileName) async {
+  final path = (await getExternalStorageDirectory()).path;
+
+  final file = File('$path/$fileName');
+  await file.writeAsBytes(bytes, flush: true);
+  // OpenFile.open('$path/$fileName');
+  print('file save sucessfully');
+}

@@ -1,14 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:makeupshop/Models/ContactModel.dart';
 import 'package:makeupshop/Models/GloballyAccess.dart';
 import 'package:makeupshop/Models/Users.dart';
-import 'package:makeupshop/Models/sellModel.dart';
-
-import 'package:makeupshop/api/GloballyApi.dart';
-
-import 'package:makeupshop/widget/ListViewPayment.dart';
+import 'package:makeupshop/style/color.dart';
 
 import 'package:makeupshop/widget/MyDrawer.dart';
 
@@ -31,8 +24,8 @@ class _UsersListState extends State<UsersList> {
   // LocationModel _listSells;
   UsersModel _usersModel;
 
-  // LocationModel listlocation;
   List type = [];
+  // ignore: unused_field
   Object _itemVal;
   List<String> paymentMethodList = [
     'Cash',
@@ -49,103 +42,60 @@ class _UsersListState extends State<UsersList> {
   }
 
   TextEditingController searchTextEditingController = TextEditingController();
+  // ignore: unused_field
   String _data = "";
 
   List<String> contactFromApi = [];
-  final GlobalKey<ScaffoldState> _scaffold = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
       drawer: new BuildMyDrawer(),
-      body: SafeArea(
-        child: Container(
-          color: Color(0xff031344),
-          child: Column(
-            children: [
-              SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 13),
-                child: Row(
-                  children: [
-                    Row(
-                      children: [
-                        Row(
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                setState(() {
-                                  Navigator.pop(context, false);
-                                });
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(15)),
-                                child: Icon(
-                                  Icons.arrow_back_sharp,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              "Users",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          width: 30,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Expanded(
-                child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 12),
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage('asset/bgColor.png'),
-                            fit: BoxFit.fill),
-                        color: Colors.white.withOpacity(0.9),
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(24),
-                            topRight: Radius.circular(24))),
-                    child: Column(
-                      children: [
-                        Expanded(
-                            child: Container(
-                                child: _usersModel == null
-                                    ? Center(child: CircularProgressIndicator())
-                                    : ListView.builder(
-                                        itemCount: _usersModel.data.length <= 3
-                                            ? _usersModel.data.length
-                                            : _usersModel.data.length +
-                                                3 -
-                                                _usersModel.data.length,
-                                        itemBuilder: (context, index) {
-                                          return UserListContainer(
-                                              _usersModel, index);
-                                        }))),
-                      ],
-                    )),
-              ),
-            ],
-          ),
+      appBar: AppBar(
+        elevation: 0.0,
+        backgroundColor: appBarColor,
+        title: Text('Users'),
+        leading: InkWell(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Icon(Icons.arrow_back)),
+      ),
+      body: Container(
+        color: appBarColor,
+        child: Column(
+          children: [
+            Expanded(
+              child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 12),
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  decoration: BoxDecoration(
+                      color: background,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(24),
+                          topRight: Radius.circular(24))),
+                  child: Column(
+                    children: [
+                      Expanded(
+                          child: Container(
+                              child: _usersModel == null
+                                  ? Center(child: CircularProgressIndicator())
+                                  : ListView.builder(
+                                      itemCount: _usersModel.data.length <= 3
+                                          ? _usersModel.data.length
+                                          : _usersModel.data.length +
+                                              3 -
+                                              _usersModel.data.length,
+                                      itemBuilder: (context, index) {
+                                        return UserListContainer(
+                                            _usersModel, index);
+                                      }))),
+                    ],
+                  )),
+            ),
+          ],
         ),
       ),
     );
@@ -171,8 +121,7 @@ class _UsersListState extends State<UsersList> {
   }
 
   Future<UsersModel> getSellMethod(String accessToken) async {
-    final String locationApiUrl =
-        'https://erp.live/connector/api/user?service_staff=0';
+    final String locationApiUrl = 'https://food.erp.live/connector/api/user';
 
     print("GetSellMethod RUnssss");
     print("++++++++++++++_____________+++++++++++++++");
@@ -183,9 +132,6 @@ class _UsersListState extends State<UsersList> {
       "Content-Type": "application/json",
       "Accept": "application/json",
     });
-
-    print("thissss is status code+++++++++++++++++++");
-    print(response.statusCode);
 
     if (response.statusCode == 200) {
       final String responseString = response.body;

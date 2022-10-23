@@ -12,13 +12,13 @@ import 'package:http/http.dart' as http;
 import 'package:makeupshop/Models/sellModel.dart';
 import 'package:makeupshop/api/GloballyApi.dart';
 import 'package:makeupshop/screens/BottomAppBar.dart';
+import 'package:makeupshop/style/color.dart';
 
 import 'package:makeupshop/widget/MyDrawer.dart';
 
 import 'package:makeupshop/widget/buttons.dart';
 
 import '../main.dart';
-import 'package:dropdownfield/dropdownfield.dart';
 
 // ignore: must_be_immutable
 class Expenses extends StatefulWidget {
@@ -31,6 +31,7 @@ class Expenses extends StatefulWidget {
 }
 
 class _ExpensesState extends State<Expenses> {
+  // ignore: unused_field
   String _locationid;
   final GlobalKey<ScaffoldState> _scaffold = GlobalKey<ScaffoldState>();
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
@@ -107,89 +108,79 @@ class _ExpensesState extends State<Expenses> {
     return Scaffold(
       key: _scaffold,
       drawer: BuildMyDrawer(),
-      // backgroundColor: Color(0xff031344),
-      body: SafeArea(
-        child: Container(
-          color: Color(0xff031344),
-          child: Column(
-            children: [
-              SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 13),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      appBar: AppBar(
+        elevation: 0.0,
+        backgroundColor: appBarColor,
+        leading: InkWell(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Icon(Icons.arrow_back)),
+        title: Text('Add Expense'),
+      ),
+      body: Container(
+        color: appBarColor,
+        child: Column(
+          children: [
+            Expanded(
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 12),
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                decoration: BoxDecoration(
+                    color: background,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(24),
+                        topRight: Radius.circular(24))),
+                child: ListView(
                   children: [
-                    Row(
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            setState(() {
-                              Navigator.pop(context, false);
-                            });
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(15)),
-                            child: Icon(
-                              Icons.arrow_back_sharp,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 9,
-                        ),
-                        Text('Expenses',
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 20)),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Expanded(
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 12),
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage('asset/bgColor.png'),
-                          fit: BoxFit.fill),
-                      color: Colors.white.withOpacity(0.9),
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(24),
-                          topRight: Radius.circular(24))),
-                  child: ListView(
-                    children: [
-                      SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.03),
-                      Container(
-                        child: Form(
-                          key: _formkey,
-                          child: Column(
-                            children: [
-                              Container(
-                                padding: EdgeInsets.symmetric(horizontal: 30),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Checkbox(
-                                          value: valueCeckBox,
-                                          onChanged: (bool value) {
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+                    Container(
+                      child: Form(
+                        key: _formkey,
+                        child: Column(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.symmetric(horizontal: 30),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Checkbox(
+                                        value: valueCeckBox,
+                                        onChanged: (bool value) {
+                                          setState(() {
+                                            valueCeckBox = value;
+                                            if (value) {
+                                              // selectedPrior.add(1);
+                                              check1 = 1;
+                                              print(check1);
+                                              print(selectedPrior);
+                                            } else {
+                                              // selectedPrior.add(0);
+                                              // selectedPrior.remove(1);
+
+                                              print(selectedPrior);
+                                            }
+                                          });
+                                        },
+                                      ),
+                                      Text('Is Recurring?'),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Checkbox(
+                                          value: valueCeckBox1,
+                                          onChanged: (value) {
                                             setState(() {
-                                              valueCeckBox = value;
+                                              valueCeckBox1 = value;
                                               if (value) {
                                                 // selectedPrior.add(1);
-                                                check1 = 1;
-                                                print(check1);
+                                                check2 = 1;
+                                                print(check2);
                                                 print(selectedPrior);
                                               } else {
                                                 // selectedPrior.add(0);
@@ -198,439 +189,407 @@ class _ExpensesState extends State<Expenses> {
                                                 print(selectedPrior);
                                               }
                                             });
-                                          },
-                                        ),
-                                        Text('Is Recurring?'),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        Checkbox(
-                                            value: valueCeckBox1,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                valueCeckBox1 = value;
-                                                if (value) {
-                                                  // selectedPrior.add(1);
-                                                  check2 = 1;
-                                                  print(check2);
-                                                  print(selectedPrior);
-                                                } else {
-                                                  // selectedPrior.add(0);
-                                                  // selectedPrior.remove(1);
-
-                                                  print(selectedPrior);
-                                                }
-                                              });
-                                            }),
-                                        Text('isRefundable'),
-                                      ],
-                                    )
-                                  ],
-                                ),
+                                          }),
+                                      Text('isRefundable'),
+                                    ],
+                                  )
+                                ],
                               ),
-                              valueCeckBox
-                                  ? Row(
-                                      children: [
-                                        Expanded(
-                                          child: Container(
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(9),
-                                                  color: Colors.white),
-                                              child: TextFormField(
-                                                validator: (value) {
-                                                  if (value.isEmpty)
-                                                    return 'Enter Expense Amount';
-                                                  else
-                                                    return null;
-
-                                                  // ignore: unrelated_type_equality_checks
-                                                },
-                                                controller: isrecurring,
-                                                decoration: InputDecoration(
-                                                    contentPadding:
-                                                        EdgeInsets.symmetric(
-                                                            vertical: 0,
-                                                            horizontal: 16),
-                                                    hintText:
-                                                        'Recurring Interval',
-                                                    border: OutlineInputBorder(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(9))),
-                                              )),
-                                        ),
-                                        SizedBox(
-                                          width: 5,
-                                        ),
-                                        Expanded(
-                                          child: Container(
-                                            padding: EdgeInsets.only(
-                                                left: 16, right: 16),
+                            ),
+                            valueCeckBox
+                                ? Row(
+                                    children: [
+                                      Expanded(
+                                        child: Container(
                                             decoration: BoxDecoration(
-                                                border: Border.all(
-                                                    color: Colors.grey,
-                                                    width: 1),
                                                 borderRadius:
                                                     BorderRadius.circular(9),
                                                 color: Colors.white),
-                                            child: DropdownButton(
-                                              isExpanded: true,
-                                              underline: SizedBox(),
-                                              hint: Text('Interval Type'),
-                                              icon: Icon(Icons
-                                                  .arrow_drop_down_outlined),
-                                              value: selectrecurringType,
-                                              onChanged: (value) {
-                                                setState(() {
-                                                  selectrecurringType = value;
-                                                });
+                                            child: TextFormField(
+                                              validator: (value) {
+                                                if (value.isEmpty)
+                                                  return 'Enter Expense Amount';
+                                                else
+                                                  return null;
+
+                                                // ignore: unrelated_type_equality_checks
                                               },
-                                              items: recurringType.map((value) {
-                                                return DropdownMenuItem(
-                                                    value: value,
-                                                    child: Text(value));
-                                              }).toList(),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    )
-                                  : Container(),
-                              SizedBox(
-                                height: 8,
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(left: 16, right: 16),
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: Colors.grey, width: 1),
-                                    borderRadius: BorderRadius.circular(9),
-                                    color: Colors.white),
-                                child: DropdownButton(
-                                  isExpanded: true,
-                                  underline: SizedBox(),
-                                  hint: Text('Select Business Id'),
-                                  icon: Icon(Icons.arrow_drop_down_outlined),
-                                  value: _itemValforLocation,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      _itemValforLocation = value;
-                                    });
-                                  },
-                                  items: locationFromApi.map((value) {
-                                    return DropdownMenuItem(
-                                        value: value, child: Text(value));
-                                  }).toList(),
-                                ),
-                              ),
-                              SizedBox(
-                                  height: MediaQuery.of(context).size.height *
-                                      0.01),
-                              Container(
-                                padding: EdgeInsets.only(left: 16, right: 16),
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: Colors.grey, width: 1),
-                                    borderRadius: BorderRadius.circular(9),
-                                    color: Colors.white),
-                                child: DropdownButton(
-                                  isExpanded: true,
-                                  underline: SizedBox(),
-                                  hint: Text('Payment Method'),
-                                  icon: Icon(Icons.arrow_drop_down_outlined),
-                                  value: _itemValue,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      _itemValue = value;
-                                    });
-                                  },
-                                  items: listItem.map((value) {
-                                    return DropdownMenuItem(
-                                        value: value, child: Text(value));
-                                  }).toList(),
-                                ),
-                              ),
-                              SizedBox(
-                                  height: MediaQuery.of(context).size.height *
-                                      0.01),
-                              Container(
-                                padding: EdgeInsets.only(left: 16, right: 16),
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: Colors.grey, width: 1),
-                                    borderRadius: BorderRadius.circular(9),
-                                    color: Colors.white),
-                                child: DropdownButton(
-                                  isExpanded: true,
-                                  underline: SizedBox(),
-                                  hint: Text('Select Category'),
-                                  icon: Icon(Icons.arrow_drop_down_outlined),
-                                  value: categoryType,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      categoryType = value;
-                                      print(categoryType);
-                                    });
-                                  },
-                                  items: categoryList.map((value) {
-                                    return DropdownMenuItem(
-                                        value: value, child: Text(value));
-                                  }).toList(),
-                                ),
-                              ),
-                              // SizedBox(
-                              //     height: MediaQuery.of(context).size.height *
-                              //         0.01),
-                              Container(
-                                margin: EdgeInsets.only(top: 10),
-                                child: Row(
-                                  children: [
-                                    ///
-                                    /// expense for
-                                    ///
-                                    Expanded(
-                                      child: Container(
-                                        padding: EdgeInsets.only(
-                                            left: 16, right: 16),
-                                        decoration: BoxDecoration(
-                                            border: Border.all(
-                                                color: Colors.grey, width: 1),
-                                            borderRadius:
-                                                BorderRadius.circular(9),
-                                            color: Colors.white),
-                                        child: DropdownButton(
-                                          underline: SizedBox(),
-                                          icon: Icon(Icons.keyboard_arrow_down,
-                                              color: Colors.black
-                                                  .withOpacity(0.4)),
-                                          hint: Text(
-                                            'Expense For',
-                                            style: TextStyle(
-                                                color: Colors.black
-                                                    .withOpacity(0.4)),
-                                          ),
-                                          isExpanded: true,
-                                          value: userName,
-                                          onChanged: (value) {
-                                            setState(() {
-                                              userName = value;
-                                            });
-                                          },
-                                          items: userNameList.map((value) {
-                                            return DropdownMenuItem(
-                                              value: value,
-                                              child: Text(value),
-                                            );
-                                          }).toList(),
-                                        ),
+                                              controller: isrecurring,
+                                              decoration: InputDecoration(
+                                                  contentPadding:
+                                                      EdgeInsets.symmetric(
+                                                          vertical: 0,
+                                                          horizontal: 16),
+                                                  hintText:
+                                                      'Recurring Interval',
+                                                  border: OutlineInputBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              9))),
+                                            )),
                                       ),
-                                    ),
-
-                                    SizedBox(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.015,
-                                    ),
-
-                                    Expanded(
-                                      child: Container(
-                                        padding: EdgeInsets.only(
-                                            left: 16, right: 16),
-                                        decoration: BoxDecoration(
-                                            border: Border.all(
-                                                color: Colors.grey, width: 1),
-                                            borderRadius:
-                                                BorderRadius.circular(9),
-                                            color: Colors.white),
-                                        child: DropdownButton(
-                                          underline: SizedBox(),
-                                          icon: Icon(Icons.keyboard_arrow_down,
-                                              color: Colors.black
-                                                  .withOpacity(0.4)),
-                                          hint: Text(
-                                            'Expense for contact',
-                                            style: TextStyle(
-                                                color: Colors.black
-                                                    .withOpacity(0.4)),
-                                          ),
-                                          isExpanded: true,
-                                          value: contact,
-                                          onChanged: (value) {
-                                            setState(() {
-                                              contact = value;
-                                            });
-                                          },
-                                          items: contactList.map((value) {
-                                            return DropdownMenuItem(
-                                              value: value,
-                                              child: Text(value),
-                                            );
-                                          }).toList(),
-                                        ),
+                                      SizedBox(
+                                        width: 5,
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.01,
-                              ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                      child: Container(
+                                      Expanded(
+                                        child: Container(
+                                          padding: EdgeInsets.only(
+                                              left: 16, right: 16),
                                           decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: Colors.grey, width: 1),
                                               borderRadius:
                                                   BorderRadius.circular(9),
                                               color: Colors.white),
-                                          child: TextFormField(
-                                            validator: (value) {
-                                              if (value.isEmpty)
-                                                return 'Enter Expense Amount';
-                                              else
-                                                return null;
-
-                                              // ignore: unrelated_type_equality_checks
+                                          child: DropdownButton(
+                                            isExpanded: true,
+                                            underline: SizedBox(),
+                                            hint: Text('Interval Type'),
+                                            icon: Icon(
+                                                Icons.arrow_drop_down_outlined),
+                                            value: selectrecurringType,
+                                            onChanged: (value) {
+                                              setState(() {
+                                                selectrecurringType = value;
+                                              });
                                             },
-                                            controller: expneseamount,
-                                            decoration: InputDecoration(
-                                                contentPadding:
-                                                    EdgeInsets.symmetric(
-                                                        vertical: 0,
-                                                        horizontal: 16),
-                                                hintText: 'Expense Amount',
-                                                border: OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            9))),
-                                          ))),
-                                  SizedBox(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.01,
-                                    width: 5,
-                                  ),
-                                  Expanded(
-                                      child: Container(
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(9),
-                                              color: Colors.white),
-                                          child: TextFormField(
-                                            validator: (value) {
-                                              if (value.isEmpty)
-                                                return 'Enter Paid Amount';
-                                              else
-                                                return null;
-
-                                              // ignore: unrelated_type_equality_checks
-                                            },
-                                            controller: paidamount,
-                                            decoration: InputDecoration(
-                                                contentPadding:
-                                                    EdgeInsets.symmetric(
-                                                        vertical: 0,
-                                                        horizontal: 16),
-                                                hintText: 'Paid Amount',
-                                                border: OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            9))),
-                                          ))),
-                                ],
+                                            items: recurringType.map((value) {
+                                              return DropdownMenuItem(
+                                                  value: value,
+                                                  child: Text(value));
+                                            }).toList(),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                : Container(),
+                            SizedBox(
+                              height: 8,
+                            ),
+                            Container(
+                              padding: EdgeInsets.only(left: 16, right: 16),
+                              decoration: BoxDecoration(
+                                  border:
+                                      Border.all(color: Colors.grey, width: 1),
+                                  borderRadius: BorderRadius.circular(9),
+                                  color: Colors.white),
+                              child: DropdownButton(
+                                isExpanded: true,
+                                underline: SizedBox(),
+                                hint: Text('Select Business Id'),
+                                icon: Icon(Icons.arrow_drop_down_outlined),
+                                value: _itemValforLocation,
+                                onChanged: (value) {
+                                  setState(() {
+                                    _itemValforLocation = value;
+                                  });
+                                },
+                                items: locationFromApi.map((value) {
+                                  return DropdownMenuItem(
+                                      value: value, child: Text(value));
+                                }).toList(),
                               ),
-                              SizedBox(
+                            ),
+                            SizedBox(
                                 height:
-                                    MediaQuery.of(context).size.height * 0.01,
+                                    MediaQuery.of(context).size.height * 0.01),
+                            Container(
+                              padding: EdgeInsets.only(left: 16, right: 16),
+                              decoration: BoxDecoration(
+                                  border:
+                                      Border.all(color: Colors.grey, width: 1),
+                                  borderRadius: BorderRadius.circular(9),
+                                  color: Colors.white),
+                              child: DropdownButton(
+                                isExpanded: true,
+                                underline: SizedBox(),
+                                hint: Text('Payment Method'),
+                                icon: Icon(Icons.arrow_drop_down_outlined),
+                                value: _itemValue,
+                                onChanged: (value) {
+                                  setState(() {
+                                    _itemValue = value;
+                                  });
+                                },
+                                items: listItem.map((value) {
+                                  return DropdownMenuItem(
+                                      value: value, child: Text(value));
+                                }).toList(),
                               ),
-                              Row(
+                            ),
+                            SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.01),
+                            Container(
+                              padding: EdgeInsets.only(left: 16, right: 16),
+                              decoration: BoxDecoration(
+                                  border:
+                                      Border.all(color: Colors.grey, width: 1),
+                                  borderRadius: BorderRadius.circular(9),
+                                  color: Colors.white),
+                              child: DropdownButton(
+                                isExpanded: true,
+                                underline: SizedBox(),
+                                hint: Text('Select Category'),
+                                icon: Icon(Icons.arrow_drop_down_outlined),
+                                value: categoryType,
+                                onChanged: (value) {
+                                  setState(() {
+                                    categoryType = value;
+                                    print(categoryType);
+                                  });
+                                },
+                                items: categoryList.map((value) {
+                                  return DropdownMenuItem(
+                                      value: value, child: Text(value));
+                                }).toList(),
+                              ),
+                            ),
+                            // SizedBox(
+                            //     height: MediaQuery.of(context).size.height *
+                            //         0.01),
+                            Container(
+                              margin: EdgeInsets.only(top: 10),
+                              child: Row(
                                 children: [
+                                  ///
+                                  /// expense for
+                                  ///
                                   Expanded(
                                     child: Container(
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.155,
+                                      padding:
+                                          EdgeInsets.only(left: 16, right: 16),
                                       decoration: BoxDecoration(
-                                          color: Colors.white,
+                                          border: Border.all(
+                                              color: Colors.grey, width: 1),
                                           borderRadius:
-                                              BorderRadius.circular(9)),
-                                      child: TextFormField(
-                                        controller: expensenote,
-                                        maxLines: 4,
-                                        // minLines: 2,
-                                        decoration: InputDecoration(
-                                            hintText: 'Expense Note',
-                                            border: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(9))),
+                                              BorderRadius.circular(9),
+                                          color: Colors.white),
+                                      child: DropdownButton(
+                                        underline: SizedBox(),
+                                        icon: Icon(Icons.keyboard_arrow_down,
+                                            color:
+                                                Colors.black.withOpacity(0.4)),
+                                        hint: Text(
+                                          'Expense For',
+                                          style: TextStyle(
+                                              color: Colors.black
+                                                  .withOpacity(0.4)),
+                                        ),
+                                        isExpanded: true,
+                                        value: userName,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            userName = value;
+                                          });
+                                        },
+                                        items: userNameList.map((value) {
+                                          return DropdownMenuItem(
+                                            value: value,
+                                            child: Text(value),
+                                          );
+                                        }).toList(),
                                       ),
                                     ),
                                   ),
+
                                   SizedBox(
-                                    width: 5,
+                                    width: MediaQuery.of(context).size.width *
+                                        0.015,
                                   ),
+
                                   Expanded(
                                     child: Container(
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.155,
+                                      padding:
+                                          EdgeInsets.only(left: 16, right: 16),
                                       decoration: BoxDecoration(
-                                          color: Colors.white,
+                                          border: Border.all(
+                                              color: Colors.grey, width: 1),
                                           borderRadius:
-                                              BorderRadius.circular(9)),
-                                      child: TextFormField(
-                                        controller: paymentNote,
-                                        maxLines: 4,
-                                        // minLines: 2,
-                                        decoration: InputDecoration(
-                                            hintText: 'Payment Note',
-                                            border: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(9))),
+                                              BorderRadius.circular(9),
+                                          color: Colors.white),
+                                      child: DropdownButton(
+                                        underline: SizedBox(),
+                                        icon: Icon(Icons.keyboard_arrow_down,
+                                            color:
+                                                Colors.black.withOpacity(0.4)),
+                                        hint: Text(
+                                          'Expense for contact',
+                                          style: TextStyle(
+                                              color: Colors.black
+                                                  .withOpacity(0.4)),
+                                        ),
+                                        isExpanded: true,
+                                        value: contact,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            contact = value;
+                                          });
+                                        },
+                                        items: contactList.map((value) {
+                                          return DropdownMenuItem(
+                                            value: value,
+                                            child: Text(value),
+                                          );
+                                        }).toList(),
                                       ),
                                     ),
                                   ),
                                 ],
                               ),
-                              SizedBox(
-                                  height: MediaQuery.of(context).size.height *
-                                      0.022),
-                              SizedBox(
-                                  width: MediaQuery.of(context).size.width,
+                            ),
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.01,
+                            ),
+                            Row(
+                              children: [
+                                Expanded(
+                                    child: Container(
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(9),
+                                            color: Colors.white),
+                                        child: TextFormField(
+                                          validator: (value) {
+                                            if (value.isEmpty)
+                                              return 'Enter Expense Amount';
+                                            else
+                                              return null;
+
+                                            // ignore: unrelated_type_equality_checks
+                                          },
+                                          controller: expneseamount,
+                                          decoration: InputDecoration(
+                                              contentPadding:
+                                                  EdgeInsets.symmetric(
+                                                      vertical: 0,
+                                                      horizontal: 16),
+                                              hintText: 'Expense Amount',
+                                              border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          9))),
+                                        ))),
+                                SizedBox(
                                   height:
-                                      MediaQuery.of(context).size.height * 0.06,
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      if (_formkey.currentState.validate()) {
-                                        if (_itemValue == null &&
-                                            _itemValforLocation == null) {
-                                          return ToastMsg(Colors.red,
-                                              'Please select Items');
-                                        } else {
-                                          onPress1(widget.tokenModel);
-                                          Navigator.pushAndRemoveUntil(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      bottombar(0)),
-                                              (route) => false);
-                                        }
+                                      MediaQuery.of(context).size.height * 0.01,
+                                  width: 5,
+                                ),
+                                Expanded(
+                                    child: Container(
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(9),
+                                            color: Colors.white),
+                                        child: TextFormField(
+                                          validator: (value) {
+                                            if (value.isEmpty)
+                                              return 'Enter Paid Amount';
+                                            else
+                                              return null;
+
+                                            // ignore: unrelated_type_equality_checks
+                                          },
+                                          controller: paidamount,
+                                          decoration: InputDecoration(
+                                              contentPadding:
+                                                  EdgeInsets.symmetric(
+                                                      vertical: 0,
+                                                      horizontal: 16),
+                                              hintText: 'Paid Amount',
+                                              border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          9))),
+                                        ))),
+                              ],
+                            ),
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.01,
+                            ),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Container(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.155,
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(9)),
+                                    child: TextFormField(
+                                      controller: expensenote,
+                                      maxLines: 4,
+                                      // minLines: 2,
+                                      decoration: InputDecoration(
+                                          hintText: 'Expense Note',
+                                          border: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(9))),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Expanded(
+                                  child: Container(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.155,
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(9)),
+                                    child: TextFormField(
+                                      controller: paymentNote,
+                                      maxLines: 4,
+                                      // minLines: 2,
+                                      decoration: InputDecoration(
+                                          hintText: 'Payment Note',
+                                          border: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(9))),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.022),
+                            SizedBox(
+                                width: MediaQuery.of(context).size.width,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.06,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    if (_formkey.currentState.validate()) {
+                                      if (_itemValue == null &&
+                                          _itemValforLocation == null) {
+                                        return ToastMsg(
+                                            Colors.red, 'Please select Items');
+                                      } else {
+                                        onPress1(widget.tokenModel);
+                                        Navigator.pushAndRemoveUntil(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    bottombar(0)),
+                                            (route) => false);
                                       }
-                                    },
-                                    child: CustomeButton('Submit',
-                                        Colors.green[300], Colors.green),
-                                  ))
-                            ],
-                          ),
+                                    }
+                                  },
+                                  child: CustomeButton('Submit',
+                                      yellow.withOpacity(0.1),yellow),
+                                ))
+                          ],
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -888,7 +847,7 @@ class _ExpensesState extends State<Expenses> {
   }
 
   Future<UsersModel> getAllUsers() async {
-    final String apiUrl = 'https://erp.live/connector/api/user';
+    final String apiUrl = 'https://food.erp.live/connector/api/user';
     final response = await http.get(Uri.parse(apiUrl), headers: {
       "Authorization": "Bearer" + " $accessToken",
     });
@@ -950,7 +909,8 @@ class _ExpensesState extends State<Expenses> {
   }
 
   Future<CategoryList> getCategory() async {
-    final String apiUrl = 'https://erp.live/connector/api/expense-categories';
+    final String apiUrl =
+        'https://food.erp.live/connector/api/expense-categories';
     final response = await http.get(Uri.parse(apiUrl), headers: {
       "Authorization": "Bearer" + " $accessToken",
     });

@@ -89,9 +89,9 @@ class Datum {
   String language;
   String contactNo;
   String address;
-  int businessId;
+  String businessId;
   dynamic maxSalesDiscountPercent;
-  int allowLogin;
+  String allowLogin;
   dynamic essentialsDepartmentId;
   dynamic essentialsDesignationId;
   dynamic essentialsSalary;
@@ -99,9 +99,9 @@ class Datum {
   dynamic essentialsPayCycle;
   String status;
   dynamic crmContactId;
-  int isCmmsnAgnt;
+  String isCmmsnAgnt;
   String cmmsnPercent;
-  int selectedContacts;
+  String selectedContacts;
   dynamic dob;
   dynamic gender;
   dynamic maritalStatus;

@@ -1,9 +1,9 @@
 import 'dart:convert';
 
+import 'package:basic_utils/basic_utils.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:makeupshop/Models/ContactModel.dart';
 
 import 'package:makeupshop/Models/GloballyAccess.dart';
@@ -223,7 +223,7 @@ class _ShippmentSalesState extends State<ShippmentSales> {
                   style: TextStyle(fontSize: 14),
                 ),
                 Text(
-                  DateFormat('yyyy-MM-dd   hh:mm').format(
+                  DateFormat('yyyy-MM-dd hh:mm:ss').format(
                       widget.listSells.data[widget.index].transactionDate),
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                 ),
@@ -241,12 +241,12 @@ class _ShippmentSalesState extends State<ShippmentSales> {
                 ),
                 totalPaidAmount == null
                     ? Text(
-                        '0',
+                        'Rs.0',
                         style: TextStyle(
                             fontSize: 14, fontWeight: FontWeight.bold),
                       )
                     : Text(
-                        totalPaidAmount.toString(),
+                        "Rs." + totalPaidAmount.toString(),
                         style: TextStyle(
                             fontSize: 14, fontWeight: FontWeight.bold),
                       )
@@ -263,9 +263,9 @@ class _ShippmentSalesState extends State<ShippmentSales> {
                   style: TextStyle(fontSize: 14),
                 ),
                 widget.contactModel == null
-                    ? Text('0')
+                    ? Text('')
                     : Text(
-                        widget.contactModel.data[widget.contactIndex].firstName
+                        widget.listSells.data[widget.contactIndex].contact.name
                             .toString(),
                         style: TextStyle(
                             fontSize: 14, fontWeight: FontWeight.bold),
@@ -275,24 +275,24 @@ class _ShippmentSalesState extends State<ShippmentSales> {
             SizedBox(
               height: 5,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Location:',
-                  style: TextStyle(fontSize: 14),
-                ),
-                Text(
-                  widget.contactModel.data[widget.contactIndex]
-                      .supplierBusinessName
-                      .toString(),
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 5,
-            ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: [
+            //     Text(
+            //       'Location:',
+            //       style: TextStyle(fontSize: 14),
+            //     ),
+            //     Text(
+            //       widget.contactModel.data[widget.contactIndex]
+            //           .supplierBusinessName
+            //           .toString(),
+            //       style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+            //     ),
+            //   ],
+            // ),
+            // SizedBox(
+            //   height: 5,
+            // ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -300,10 +300,11 @@ class _ShippmentSalesState extends State<ShippmentSales> {
                   'Delivered To',
                   style: TextStyle(fontSize: 14),
                 ),
-                widget.listSells.data[widget.index].deliveredTo == "null"
+                widget.listSells.data[widget.index].deliveredTo == null
                     ? Text('')
                     : Text(
-                        widget.listSells.data[widget.index].deliveredTo ?? "",
+                        StringUtils.capitalize(
+                            widget.listSells.data[widget.index].deliveredTo),
                         style: TextStyle(
                             fontSize: 14, fontWeight: FontWeight.bold),
                       ),
@@ -318,11 +319,12 @@ class _ShippmentSalesState extends State<ShippmentSales> {
                 style: TextStyle(fontSize: 14),
               ),
               widget.listSells.data[widget.index].shippingCharges == null
-                  ? Text('')
+                  ? Text('Rs.0')
                   : Text(
-                      double.parse(widget
-                              .listSells.data[widget.index].shippingCharges)
-                          .toString(),
+                      "Rs." +
+                          double.parse(widget
+                                  .listSells.data[widget.index].shippingCharges)
+                              .toString(),
                       style:
                           TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                     )
@@ -504,6 +506,7 @@ class _ShippmentSalesState extends State<ShippmentSales> {
         ),
       ),
       actions: <Widget>[
+        // ignore: deprecated_member_use
         new FlatButton(
           onPressed: () {
             Navigator.of(context).pop();
@@ -517,7 +520,7 @@ class _ShippmentSalesState extends State<ShippmentSales> {
 
   onPress(String accessToken) async {
     final String apiUrl =
-        'https://erp.live/connector/api/sell/${widget.listSells.data[widget.index].id}';
+        'https://food.erp.live/connector/api/sell/${widget.listSells.data[widget.index].id}';
 
     final response = await http.delete(Uri.parse(apiUrl), headers: {
       "Authorization": "Bearer" + " $accessToken",
@@ -549,7 +552,7 @@ class _ShippmentSalesState extends State<ShippmentSales> {
 
   Future<UpdateSell> getSellMethod1(String accessToken) async {
     final String apiUrl =
-        'https://erp.live/connector/api/sell/${widget.listSells.data[widget.index].id}';
+        'https://food.erp.live/connector/api/sell/${widget.listSells.data[widget.index].id}';
 
     print("GetSellMethod RUnssss");
     print("++++++++++++++_____________+++++++++++++++");
@@ -614,7 +617,7 @@ class _ShippmentSalesState extends State<ShippmentSales> {
 
   Future<UpdateContactModel> getSellMethod2(String accessToken) async {
     final String apiUrl =
-        'https://erp.live/connector/api/contactapi/$contactID';
+        'https://food.erp.live/connector/api/contactapi/$contactID';
 
     print("GetSellMethod RUnssss");
     print("++++++++++++++_____________+++++++++++++++");
@@ -660,7 +663,7 @@ class _ShippmentSalesState extends State<ShippmentSales> {
 
   Future<void> getSellMethod3(String accessToken) async {
     final String apiUrl =
-        'https://erp.live/connector/api/update-shipping-status';
+        'https://food.erp.live/connector/api/update-shipping-status';
 
     Map<String, String> headers = {
       "Content-Type": "application/json",

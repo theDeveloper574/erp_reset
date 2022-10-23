@@ -1,4 +1,3 @@
-import 'package:makeupshop/screens/shipment.dart';
 
 String accessToken;
 int userId;

@@ -12,7 +12,6 @@ import 'package:makeupshop/Models/searchProductModel.dart';
 import 'package:makeupshop/Models/todoModel.dart';
 import 'package:makeupshop/main.dart';
 import 'package:makeupshop/widget/productDetail.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 // ignore: must_be_immutable
 class GridViewCont extends StatefulWidget {
@@ -302,7 +301,7 @@ class _GridViewContState extends State<GridViewCont> {
                                 widget.search == false
                                     ? Expanded(
                                         child: Text(
-                                          '$currencySymbol${double.parse(widget.productsModel.data[widget.index].productVariations.first.variations.first.sellPriceIncTax.toString())}',
+                                          'Rs.${double.parse(widget.productsModel.data[widget.index].productVariations.first.variations.first.sellPriceIncTax.toString())}',
                                           overflow: TextOverflow.ellipsis,
                                           style: TextStyle(
                                               fontSize: 15,
@@ -353,5 +352,10 @@ class _GridViewContState extends State<GridViewCont> {
         ),
       ),
     );
+  }
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(StringProperty('_proudtsId', _proudtsId));
   }
 }

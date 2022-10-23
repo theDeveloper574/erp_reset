@@ -13,10 +13,9 @@ import 'package:makeupshop/Models/searchProductModel.dart';
 import 'package:makeupshop/Models/todoModel.dart';
 import 'package:makeupshop/api/GloballyApi.dart';
 import 'package:makeupshop/screens/GridViewContainer.dart';
-
+import 'package:makeupshop/style/color.dart';
 import 'package:makeupshop/widget/ListViewContainer.dart';
 import 'package:makeupshop/widget/MyDrawer.dart';
-
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../main.dart';
 
@@ -104,7 +103,7 @@ class _ProductsState extends State<Products> {
   String endPoint = "";
   bool isFilter = false;
   bool isLocationOn = false;
-  // final String productApiUrl = "https://erp.live/connector/api/product";
+  // final String productApiUrl = "https://food.erp.live/connector/api/product";
   final String locationApiUrl = erpUrl + locationApi;
   var j;
   List productsId = [];
@@ -156,6 +155,58 @@ class _ProductsState extends State<Products> {
         child: Scaffold(
             key: _scaffold,
             drawer: BuildMyDrawer(),
+            appBar: AppBar(
+              elevation: 0.0,
+              backgroundColor: appBarColor,
+              title: Text('Products'),
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 10.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 100.0,
+                        child: DropdownButton(
+                          isExpanded: true,
+                          underline: SizedBox(),
+                          hint: Text(
+                            'Location',
+                            style: TextStyle(color: Colors.white, fontSize: 17),
+                          ),
+                          icon: Icon(
+                            Icons.keyboard_arrow_down,
+                            color: Colors.white,
+                          ),
+                          value: _itemValforLocation,
+                          onChanged: (value) {
+                            setState(() {
+                              isLocationOn = true;
+                              _itemValforLocation = value;
+                            });
+                          },
+                          items: locationFromApi.map((value) {
+                            return DropdownMenuItem(
+                                value: value,
+                                child: Text(
+                                  value,
+                                  style: TextStyle(
+                                      color: Colors.red, fontSize: 17),
+                                ));
+                          }).toList(),
+                        ),
+                      ),
+                      InkWell(
+                          onTap: () {},
+                          child: Icon(
+                            Icons.location_on,
+                            color: Colors.white,
+                          )),
+                    ],
+                  ),
+                ),
+              ],
+            ),
             body: Container(
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
@@ -165,93 +216,11 @@ class _ProductsState extends State<Products> {
                     end: Alignment.topCenter,
                     colors: [
                       Colors.white,
-                      Color(0xff021343),
+                      appBarColor,
                     ],
                   ),
                 ),
                 child: Column(children: [
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                    height: 40,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Row(
-                          children: [
-                            InkWell(
-                                onTap: () {
-                                  _scaffold.currentState.openDrawer();
-                                },
-                                child: Image(
-                                  image: AssetImage("asset/menu_ic.png"),
-                                )),
-                            Text(
-                              "  Home",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18),
-                            )
-                          ],
-                        ),
-                        InkWell(
-                          onTap: () {
-                            setState(() {
-                              print("Button pressssedddddddddd");
-                            });
-                          },
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                width: 100.0,
-                                child: DropdownButton(
-                                  isExpanded: true,
-                                  underline: SizedBox(),
-                                  // isExpanded: true,
-                                  hint: Text(
-                                    'Location',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 17),
-                                  ),
-
-                                  icon: Icon(
-                                    Icons.keyboard_arrow_down,
-                                  ),
-                                  value: _itemValforLocation,
-                                  onChanged: (value) {
-                                    print("Butttton presseddddddddddddddd");
-
-                                    setState(() {
-                                      isLocationOn = true;
-                                      _itemValforLocation = value;
-                                    });
-                                  },
-                                  items: locationFromApi.map((value) {
-                                    return DropdownMenuItem(
-                                        value: value,
-                                        child: Text(
-                                          value,
-                                          style: TextStyle(
-                                              color: Colors.red, fontSize: 17),
-                                        ));
-                                  }).toList(),
-                                ),
-                              ),
-                              InkWell(
-                                  onTap: () {},
-                                  child: Icon(
-                                    Icons.location_on,
-                                    color: Colors.white,
-                                  )),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
                   Expanded(
                     child: Container(
                       height: MediaQuery.of(context).size.height,
@@ -260,10 +229,7 @@ class _ProductsState extends State<Products> {
                         horizontal: 10,
                       ),
                       decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage('asset/bgColor.png'),
-                            fit: BoxFit.fill),
-                        color: Colors.white.withOpacity(.9),
+                        color: background,
                         borderRadius: BorderRadius.only(
                           topRight: Radius.circular(25),
                           topLeft: Radius.circular(25),
@@ -340,7 +306,7 @@ class _ProductsState extends State<Products> {
                                       padding: EdgeInsets.symmetric(
                                           horizontal: 10, vertical: 8),
                                       decoration: BoxDecoration(
-                                          color: Colors.blue,
+                                          color: yellow,
                                           borderRadius: BorderRadius.only(
                                             topRight: Radius.circular(10),
                                             bottomRight: Radius.circular(10),
@@ -479,8 +445,6 @@ class _ProductsState extends State<Products> {
                                                 ),
                                                 value: _itemValue,
                                                 onChanged: (value) {
-                                                  print(
-                                                      "Butttton presseddddddddddddddd");
 
                                                   setState(() {
                                                     isBrandFilter = true;
@@ -1179,7 +1143,7 @@ class _ProductsState extends State<Products> {
                                           padding: EdgeInsets.symmetric(
                                               horizontal: 8, vertical: 5),
                                           decoration: BoxDecoration(
-                                              color: Color(0xff031344),
+                                              color: yellow,
                                               borderRadius:
                                                   BorderRadius.circular(5)),
                                           child: Text(
@@ -1210,7 +1174,7 @@ class _ProductsState extends State<Products> {
                                             padding: EdgeInsets.symmetric(
                                                 horizontal: 8, vertical: 5),
                                             decoration: BoxDecoration(
-                                                color: Color(0xff031344),
+                                                color: yellow,
                                                 borderRadius:
                                                     BorderRadius.circular(5)),
                                             child: Text(
@@ -1242,209 +1206,6 @@ class _ProductsState extends State<Products> {
     print('ababbbabba');
     print(getCategories);
     print(_itemValue);
-
-    // showModalBottomSheet(
-    //     context: context,
-    //     builder: (BuildContext context) {
-    //       return new StatefulBuilder(builder: (BuildContext context, setState) {
-    //         return Container(
-    //           color: Color(0xff737373),
-    //           height: MediaQuery.of(context).size.height * 0.5,
-    //           child: Container(
-    //             child: ListView(
-    //               children: [
-    //                 SizedBox(
-    //                   height: MediaQuery.of(context).size.height * 0.02,
-    //                 ),
-    //                 Center(
-    //                   child: Text(
-    //                     "Filter",
-    //                     style: TextStyle(
-    //                       fontSize: 18,
-    //                       fontWeight: FontWeight.w500,
-    //                     ),
-    //                   ),
-    //                 ),
-    //                 SizedBox(
-    //                   height: MediaQuery.of(context).size.height * 0.02,
-    //                 ),
-    //                 Padding(
-    //                   padding: const EdgeInsets.all(8.0),
-    //                   child: Row(
-    //                     children: [
-    //                       Image(
-    //                         image: AssetImage("asset/username_check.png"),
-    //                       ),
-    //                       SizedBox(
-    //                         width: MediaQuery.of(context).size.width * 0.02,
-    //                       ),
-    //                       Text(
-    //                         "In Stock",
-    //                         style: TextStyle(
-    //                           fontSize: 16,
-    //                           fontWeight: FontWeight.w400,
-    //                         ),
-    //                       ),
-    //                     ],
-    //                   ),
-    //                 ),
-    //                 SizedBox(
-    //                   height: MediaQuery.of(context).size.height * 0.01,
-    //                 ),
-    //                 Container(
-    //                   width: MediaQuery.of(context).size.width,
-    //                   // height: MediaQuery.of(context).size.height * 0.05,
-    //                   padding: EdgeInsets.all(10),
-    //                   color: Colors.grey[100],
-    //                   child: Row(
-    //                     children: [
-    //                       Text(
-    //                         "Categories",
-    //                         style: TextStyle(
-    //                           color: Colors.grey,
-    //                         ),
-    //                       ),
-    //                     ],
-    //                   ),
-    //                 ),
-    //                 SizedBox(
-    //                   height: MediaQuery.of(context).size.height * 0.01,
-    //                 ),
-    //                 Padding(
-    //                   padding: const EdgeInsets.all(8.0),
-    //                   child: Container(
-    //                     width: MediaQuery.of(context).size.width,
-    //                     // height: MediaQuery.of(context).size.height * 0.07,
-    //                     padding: EdgeInsets.symmetric(
-    //                       horizontal: 15,
-    //                     ),
-    //                     decoration: BoxDecoration(
-    //                       color: Colors.white,
-    //                       border: Border.all(
-    //                         color: Colors.grey.shade300,
-    //                       ),
-    //                       borderRadius: BorderRadius.circular(10),
-    //                     ),
-    //                     child: DropdownButton(
-    //                       underline: SizedBox(),
-    //                       isExpanded: true,
-    //                       hint: Text("Select categories"),
-    //                       icon: Icon(
-    //                         Icons.keyboard_arrow_down,
-    //                       ),
-    //                       value: _itemVal,
-    //                       onChanged: (value) {
-    //                         setState(() {
-    //                           isFilter = true;
-    //                           _itemVal = value;
-    //                           endPoint = _itemVal;
-    //                           print("this is end point$endPoint");
-
-    //                           ///For selected item filter;
-    //                           // for (var i = 0;
-    //                           //     i <= _productsModel.data.length;
-    //                           //     i++) {
-    //                           //   if (_productsModel.data[i].category != null) {
-    //                           //     if (_productsModel.data[i].category.name ==
-    //                           //         _itemVal) {
-    //                           //       print(_productsModel.data[i].name);
-    //                           //       itemCountForFilter++;
-    //                           //     }
-    //                           //   } else {}
-    //                           // }
-    //                         });
-    //                       },
-    //                       items: itemsFromApi.map((value) {
-    //                         return DropdownMenuItem(
-    //                             value: value, child: Text(value));
-    //                       }).toList(),
-    //                     ),
-    //                   ),
-    //                 ),
-    //                 SizedBox(
-    //                   height: MediaQuery.of(context).size.height * 0.01,
-    //                 ),
-    //                 Container(
-    //                   width: MediaQuery.of(context).size.width,
-    //                   // height: MediaQuery.of(context).size.height * 0.05,
-    //                   padding: EdgeInsets.all(10),
-    //                   color: Colors.grey[100],
-    //                   child: Row(
-    //                     children: [
-    //                       Text(
-    //                         "Brands",
-    //                         style: TextStyle(
-    //                           color: Colors.grey,
-    //                         ),
-    //                       ),
-    //                     ],
-    //                   ),
-    //                 ),
-    //                 SizedBox(
-    //                   height: MediaQuery.of(context).size.height * 0.01,
-    //                 ),
-    //                 Padding(
-    //                   padding: const EdgeInsets.all(8.0),
-    //                   child: Container(
-    //                     width: MediaQuery.of(context).size.width,
-    //                     // height: MediaQuery.of(context).size.height * 0.07,
-    //                     padding: EdgeInsets.symmetric(
-    //                       horizontal: 15,
-    //                     ),
-    //                     decoration: BoxDecoration(
-    //                       color: Colors.white,
-    //                       border: Border.all(
-    //                         color: Colors.grey.shade300,
-    //                       ),
-    //                       borderRadius: BorderRadius.circular(10),
-    //                     ),
-    //                     child: DropdownButton(
-    //                       underline: SizedBox(),
-    //                       isExpanded: true,
-    //                       hint: Text("Select brands"),
-    //                       icon: Icon(
-    //                         Icons.keyboard_arrow_down,
-    //                       ),
-    //                       value: _itemValue,
-    //                       onChanged: (value) {
-    //                         setState(() {
-    //                           isBrandFilter = true;
-    //                           _itemValue = value;
-    //                           endPoint = _itemValue;
-    //                           for (var i = 0;
-    //                               i <= _productsModel.data.length - 1;
-    //                               i++) {
-    //                             if (_productsModel.data[i].brand != null) {
-    //                               if (_productsModel.data[i].brand.name ==
-    //                                   _itemVal) {
-    //                                 print(_productsModel.data[i].name);
-    //                                 itemBrandFilter++;
-    //                               }
-    //                             } else {
-    //                               return;
-    //                             }
-    //                           }
-    //                         });
-    //                       },
-    //                       items: brandsFromApi.map((value) {
-    //                         return DropdownMenuItem(
-    //                             value: value, child: Text(value));
-    //                       }).toList(),
-    //                     ),
-    //                   ),
-    //                 ),
-    //               ],
-    //             ),
-    //             decoration: BoxDecoration(
-    //               color: Colors.white,
-    //               borderRadius: BorderRadius.only(
-    //                   topLeft: Radius.circular(20),
-    //                   topRight: Radius.circular(20)),
-    //             ),
-    //           ),
-    //         );
-    //       });
-    //     });
   }
 
   //
@@ -1498,7 +1259,7 @@ class _ProductsState extends State<Products> {
   Future<ProductsModel> getSellMethod(
       String accessToken, int currentPage) async {
     final String productApiUrl =
-        'https://erp.live/connector/api/product?page=$currentPage';
+        'https://food.erp.live/connector/api/product?page=$currentPage';
 
     print("GetSellMethod RUnssss");
     print("++++++++++++++___+++++++++++++++");

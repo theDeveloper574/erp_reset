@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class ProductImage extends StatefulWidget {
   String image;
   ProductImage(this.image);

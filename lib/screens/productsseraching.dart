@@ -133,7 +133,7 @@ class _ProductsSerachedState extends State<ProductsSerached> {
 //
 
 Future<ProductsModel> getSellMethod(String accessToken) async {
-  final String productApiUrl = 'https://erp.live/connector/api/product';
+  final String productApiUrl = 'https://food.erp.live/connector/api/product';
 
   print("GetSellMethod RUnssss");
   print("++++++++++++++___+++++++++++++++");

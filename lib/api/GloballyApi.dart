@@ -1,6 +1,6 @@
-final String erpUrl = 'https://erp.live/connector/api/';
+final String erpUrl = 'https://food.erp.live/connector/api/';
 
-final String authToken = 'https://erp.live/oauth/token';
+final String authToken = 'https://food.erp.live/oauth/token';
 final String loggedIn = 'user/loggedin';
 final String sellApi = 'sell';
 final String checkinApi = 'clock-in';

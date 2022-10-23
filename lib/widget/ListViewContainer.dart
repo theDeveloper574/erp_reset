@@ -37,7 +37,9 @@ class _ListViewContainerState extends State<ListViewContainer> {
   int count = 0;
   List productIdList = [];
   var productIdList1 = [];
+  // ignore: unused_field
   List _productsId1 = ['36055', '36054'];
+  
   StreamSubscription<Map<String, dynamic>> _subscription;
   final _db = Localstore.instance;
   final _items = <String, Todo>{};
@@ -267,7 +269,7 @@ class _ListViewContainerState extends State<ListViewContainer> {
                               children: [
                                 widget.search == false
                                     ? Text(
-                                        '$currencySymbol ${double.parse(widget.productsModel.data[widget.index].productVariations.first.variations.first.sellPriceIncTax.toString())}',
+                                        'Rs. ${double.parse(widget.productsModel.data[widget.index].productVariations.first.variations.first.sellPriceIncTax.toString())}',
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                             fontSize: 16,
@@ -400,5 +402,10 @@ class _ListViewContainerState extends State<ListViewContainer> {
                   )),
             ),
     );
+  }
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(StringProperty('_proudtsId', _proudtsId));
   }
 }

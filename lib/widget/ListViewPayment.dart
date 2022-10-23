@@ -9,7 +9,6 @@ import 'package:makeupshop/Models/ContactModel.dart';
 import 'package:makeupshop/Models/sellModel.dart';
 
 import 'package:makeupshop/Models/todoModel.dart';
-import 'package:makeupshop/main.dart';
 import 'package:makeupshop/screens/CustomerConfirmPayment.dart';
 
 // ignore: must_be_immutable
@@ -55,6 +54,7 @@ class _ListViewPaymentState extends State<ListViewPayment> {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     final _items = <String, Todo>{};
 
     return SingleChildScrollView(

@@ -6,6 +6,7 @@ import 'package:makeupshop/Models/todoModel.dart';
 
 import '../main.dart';
 
+// ignore: must_be_immutable
 class ProductDetail extends StatefulWidget {
   ProductsModel _productModel;
   int index;

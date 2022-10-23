@@ -1,11 +1,9 @@
 import 'dart:convert';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:makeupshop/Models/ContactModel.dart';
-
 import 'package:makeupshop/Models/GloballyAccess.dart';
 import 'package:makeupshop/Models/ListSells.dart';
 import 'package:http/http.dart' as http;
@@ -14,7 +12,6 @@ import 'package:makeupshop/Models/updateContactModel.dart';
 import 'package:makeupshop/Models/updateSellModel.dart';
 import 'package:makeupshop/main.dart';
 import 'package:makeupshop/screens/BottomAppBar.dart';
-
 import 'package:makeupshop/widget/buttons.dart';
 import 'package:makeupshop/widget/fields.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
@@ -28,6 +25,7 @@ class AllSalesListViewContainer extends StatefulWidget {
   var index;
   var contactIndex;
   List sortData = [];
+  // ignore: unused_field
   SpecificContact _specificContactModel;
 
   AllSalesListViewContainer(
@@ -172,7 +170,7 @@ class _AllSalesListViewContainerState extends State<AllSalesListViewContainer> {
                         style: TextStyle(fontSize: 14),
                       ),
                       Text(
-                        DateFormat('yyyy-MM-dd  hh:mm').format(widget
+                        DateFormat('yyyy-MM-dd hh:mm').format(widget
                             .listSells.data[widget.index].transactionDate),
                         style: TextStyle(
                             fontSize: 14, fontWeight: FontWeight.bold),
@@ -191,12 +189,12 @@ class _AllSalesListViewContainerState extends State<AllSalesListViewContainer> {
                       ),
                       totalPaidAmount == null
                           ? Text(
-                              '0',
+                              'Rs.0',
                               style: TextStyle(
                                   fontSize: 14, fontWeight: FontWeight.bold),
                             )
                           : Text(
-                              totalPaidAmount.toString(),
+                              "Rs." + totalPaidAmount.toString(),
                               style: TextStyle(
                                   fontSize: 14, fontWeight: FontWeight.bold),
                             )
@@ -212,12 +210,12 @@ class _AllSalesListViewContainerState extends State<AllSalesListViewContainer> {
                         'Customer Name:',
                         style: TextStyle(fontSize: 14),
                       ),
-                      widget.contactModel.data[widget.contactIndex].firstName ==
+                      widget.listSells.data[widget.contactIndex].contact.name ==
                               null
                           ? Text('')
                           : Text(
-                              widget.contactModel.data[widget.contactIndex]
-                                  .firstName
+                              widget.listSells.data[widget.contactIndex].contact
+                                  .name
                                   .toString(),
                               style: TextStyle(
                                   fontSize: 14, fontWeight: FontWeight.bold),
@@ -227,65 +225,42 @@ class _AllSalesListViewContainerState extends State<AllSalesListViewContainer> {
                   SizedBox(
                     height: 5,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('Location'),
-                      widget.contactModel.data[widget.contactIndex]
-                                  .supplierBusinessName ==
-                              null
-                          ? Text('')
-                          : Text(
-                              widget.contactModel.data[widget.contactIndex]
-                                  .supplierBusinessName
-                                  .toString(),
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                    ],
-                  ),
                   Divider(),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 15),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        // InkWell(
+                        //   onTap: () {
+                        //     paidAmount.text = totalPaidAmount.toString();
+                        //     customerName.text = widget.contactModel
+                        //         .data[widget.contactIndex].firstName
+                        //         .toString();
+                        //     contactID = widget
+                        //         .contactModel.data[widget.contactIndex].id;
+
+                        //     showDialog(
+                        //         context: context,
+                        //         builder: (BuildContext context) =>
+                        //             showBox(context));
+                        //   },
+                        //   child: Row(
+                        //     children: [
+                        //       Icon(
+                        //         Icons.edit,
+                        //         color: Colors.blue,
+                        //       ),
+                        //       Text(
+                        //         'Edit',
+                        //         style:
+                        //             TextStyle(color: Colors.blue, fontSize: 15),
+                        //       ),
+                        //     ],
+                        //   ),
+                        // ),
                         InkWell(
                           onTap: () {
-                            paidAmount.text = totalPaidAmount.toString();
-                            customerName.text = widget.contactModel
-                                .data[widget.contactIndex].firstName
-                                .toString();
-                            contactID = widget
-                                .contactModel.data[widget.contactIndex].id;
-                            print('abababaaba');
-
-                            // print(widget.listSells.data[widget.index]);
-                            showDialog(
-                                context: context,
-                                builder: (BuildContext context) =>
-                                    showBox(context));
-                          },
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.edit,
-                                color: Colors.blue,
-                              ),
-                              Text(
-                                'Edit',
-                                style:
-                                    TextStyle(color: Colors.blue, fontSize: 15),
-                              ),
-                            ],
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            print('ababababab');
-
                             Get.defaultDialog(
                               title: "Are you Sure you want to Delete?",
                               middleText: '',
@@ -372,6 +347,7 @@ class _AllSalesListViewContainerState extends State<AllSalesListViewContainer> {
                                 PdfPens.transparent;
                             header0.cells[1].style.borders.bottom =
                                 PdfPens.transparent;
+                            // ignore: unnecessary_cast
                             PdfLayoutResult res0 = grid0.draw(
                                     page: document.pages.add(),
                                     bounds: Rect.fromLTWH(0, 0, 0, 0))
@@ -673,7 +649,7 @@ class _AllSalesListViewContainerState extends State<AllSalesListViewContainer> {
 
                             //Add the styles to specific cell
 
-                            paymentRow.cells[1].value = '${total}';
+                            paymentRow.cells[1].value = '$total';
 
 //Apply the cell style to specific row cells
                             paymentRow.cells[0].style = PdfGridCellStyle(
@@ -812,7 +788,7 @@ class _AllSalesListViewContainerState extends State<AllSalesListViewContainer> {
                               // textPen: PdfPens.orange,
                             );
                             paymentRowPaid.cells[0].value = 'Total Paid:';
-                            paymentRowPaid.cells[1].value = '${totalPaid}';
+                            paymentRowPaid.cells[1].value = '$totalPaid';
 
                             PdfGridRow paymentRowRemaining =
                                 paymentDesGrid.rows.add();
@@ -950,6 +926,7 @@ class _AllSalesListViewContainerState extends State<AllSalesListViewContainer> {
         ),
       ),
       actions: <Widget>[
+        // ignore: deprecated_member_use
         new FlatButton(
           onPressed: () {
             Navigator.of(context).pop();
@@ -963,7 +940,7 @@ class _AllSalesListViewContainerState extends State<AllSalesListViewContainer> {
 
   onPress(String accessToken) async {
     final String apiUrl =
-        'https://erp.live/connector/api/sell/${widget.listSells.data[widget.index].id}';
+        'https://food.erp.live/connector/api/sell/${widget.listSells.data[widget.index].id}';
 
     final response = await http.delete(Uri.parse(apiUrl), headers: {
       "Authorization": "Bearer" + " $accessToken",
@@ -973,8 +950,6 @@ class _AllSalesListViewContainerState extends State<AllSalesListViewContainer> {
     if (response.statusCode == 200) {
       ToastMsg(Colors.green, 'Deleted SuccessFully');
     }
-    print(accessToken);
-    print(apiUrl);
   }
 
   onPress1(String accessToken) async {
@@ -995,11 +970,8 @@ class _AllSalesListViewContainerState extends State<AllSalesListViewContainer> {
 
   Future<UpdateSell> getSellMethod1(String accessToken) async {
     final String apiUrl =
-        'https://erp.live/connector/api/sell/${widget.listSells.data[widget.index].id}';
+        'https://food.erp.live/connector/api/sell/${widget.listSells.data[widget.index].id}';
 
-    print("GetSellMethod RUnssss");
-    print("++++++++++++++_____________+++++++++++++++");
-    print("Bearer" + " $accessToken");
     Map<String, String> headers = {
       "Content-Type": "application/json",
       "Accept": "application/json",
@@ -1014,20 +986,9 @@ class _AllSalesListViewContainerState extends State<AllSalesListViewContainer> {
     final response =
         await http.put(Uri.parse(apiUrl), headers: headers, body: msg);
 
-    print("Response Status : ${response.statusCode}");
-    print("Response Body : ${response.contentLength}");
-    print("Response Header  ${response.headers}");
-    print("Response Request   ${response.request}");
-    print("thissss is status code+++++++++++++++++++");
-    print('ababababaabbbabab');
-    print(response.body);
-    print(response.statusCode);
-    print('body' + '$msg');
-
     if (response.statusCode == 200) {
       final String responseString = response.body;
-      print('Run SuccessFully');
-      print('PPPPPPPPPPPPPPPPPPPPP');
+
       ToastMsg(
         Colors.green,
         "Data Added SuccessFully ",
@@ -1051,7 +1012,7 @@ class _AllSalesListViewContainerState extends State<AllSalesListViewContainer> {
     if (_updateContactModel == null) {
       ToastMsg(
         Colors.red,
-        "Something went Wrong,try again",
+        "Try again",
       );
     } else {
       print('Run SuccessFully');
@@ -1060,11 +1021,8 @@ class _AllSalesListViewContainerState extends State<AllSalesListViewContainer> {
 
   Future<UpdateContactModel> getSellMethod2(String accessToken) async {
     final String apiUrl =
-        'https://erp.live/connector/api/contactapi/$contactID';
+        'https://food.erp.live/connector/api/contactapi/$contactID';
 
-    print("GetSellMethod RUnssss");
-    print("++++++++++++++_____________+++++++++++++++");
-    print("Bearer" + " $accessToken");
     Map<String, String> headers = {
       "Content-Type": "application/json",
       "Accept": "application/json",
@@ -1076,20 +1034,8 @@ class _AllSalesListViewContainerState extends State<AllSalesListViewContainer> {
     final response =
         await http.put(Uri.parse(apiUrl), headers: headers, body: msg);
 
-    print("Response Status : ${response.statusCode}");
-    print("Response Body : ${response.contentLength}");
-    print("Response Header  ${response.headers}");
-    print("Response Request   ${response.request}");
-    print("thissss is status code+++++++++++++++++++");
-    print('ababababaabbbabab');
-    print(response.body);
-    print(response.statusCode);
-    print('body' + '$msg');
-
     if (response.statusCode == 200) {
       final String responseString = response.body;
-      print('Run SuccessFully');
-      print('PPPPPPPPPPPPPPPPPPPPP');
       ToastMsg(
         Colors.green,
         "Data Added SuccessFully ",
@@ -1098,7 +1044,7 @@ class _AllSalesListViewContainerState extends State<AllSalesListViewContainer> {
     } else {
       ToastMsg(
         Colors.red,
-        "SOmething went Wrong status code is ",
+        "Try again",
       );
       return null;
     }
@@ -1118,10 +1064,10 @@ class _AllSalesListViewContainerState extends State<AllSalesListViewContainer> {
   }
 
   Future<SpecificContact> getSpecificContact(int id) async {
-    final String apiUrl = 'https://erp.live/connector/api/contactapi/$id';
+    final String apiUrl = 'https://food.erp.live/connector/api/contactapi/$id';
     final response = await http.get(
       Uri.parse(apiUrl),
-      headers: {"Authorization": "Bearer" + " ${accessToken}"},
+      headers: {"Authorization": "Bearer" + " $accessToken"},
     );
 
     if (response.statusCode == 200) {
@@ -1130,7 +1076,7 @@ class _AllSalesListViewContainerState extends State<AllSalesListViewContainer> {
     } else {
       ToastMsg(
         Colors.red,
-        "Something Goes Wrong",
+        "Try again",
       );
       return null;
     }

@@ -12,6 +12,7 @@ import 'package:makeupshop/Models/localdataBaseModel.dart';
 import 'package:makeupshop/Models/searchProductModel.dart';
 import 'package:makeupshop/screens/BottomAppBar.dart';
 import 'package:makeupshop/screens/checkoutCash.dart';
+import 'package:makeupshop/style/color.dart';
 import 'package:makeupshop/widget/ListViewContainer.dart';
 import 'package:makeupshop/widget/MyDrawer.dart';
 import '../main.dart';
@@ -33,11 +34,13 @@ class _CartScreenState extends State<CartScreen> {
 
   Object _discountType;
   Grocery grocery;
+  // ignore: unused_field
   Object _taxRateItem;
   bool isEditColor = false;
   var discountTypeItem = ['A', 'B'];
   var taxRateItem = ['C', 'D'];
   bool isVisible = false;
+
   bool isChange = false;
   var getPrice;
   String data = "";
@@ -63,10 +66,11 @@ class _CartScreenState extends State<CartScreen> {
   var variationIdmatch;
   var unitIdmatch;
   var payment;
-  
+
   double unitpriceedit;
   String productId, variationId, locationId;
   @override
+  // ignore: override_on_non_overriding_member
   final _db = Localstore.instance;
   final _items = <String, Todo>{};
   StreamSubscription<Map<String, dynamic>> _subscription;
@@ -201,16 +205,13 @@ class _CartScreenState extends State<CartScreen> {
               actions: <Widget>[
                 TextButton(
                   onPressed: () => Navigator.of(context).pop(false),
-                  child: new Text(
-                    'No',
-                    style: TextStyle(color: Color(0xff4957BA)),
-                  ),
+                  child: new Text('No', style: TextStyle(color: appBarColor)),
                 ),
                 TextButton(
                   onPressed: () => exit(0),
                   child: new Text(
                     'Yes',
-                    style: TextStyle(color: Color(0xff4957BA)),
+                    style: TextStyle(color: appBarColor),
                   ),
                 ),
               ],
@@ -228,14 +229,14 @@ class _CartScreenState extends State<CartScreen> {
           /// side menu or sider
           ///
           drawer: BuildMyDrawer(),
-          backgroundColor: Color(0xff031344),
+          backgroundColor: appBarColor,
 
           ///
           /// app bar
           ///
           appBar: AppBar(
             elevation: 0.0,
-            backgroundColor: Color(0xff031344),
+            backgroundColor: appBarColor,
             leading: InkWell(
                 onTap: () {
                   ///
@@ -269,26 +270,12 @@ class _CartScreenState extends State<CartScreen> {
           ),
           body: Container(
               decoration: BoxDecoration(
-                color: Colors.white,
-                image: DecorationImage(
-                  fit: BoxFit.fill,
-                  image: AssetImage(
-                    'asset/bgColor.png',
-                  ),
-                ),
+                color: background,
                 borderRadius: BorderRadius.only(
                   topRight: Radius.circular(25),
                   topLeft: Radius.circular(25),
                 ),
 
-                ///
-                /// background gradient color
-                ///
-                gradient: LinearGradient(colors: [
-                  Color(0xffF3FCFE),
-                  Color(0xffE8F8F0),
-                  Color(0xffDAF1F9),
-                ]),
               ),
               child: Column(children: [
                 Expanded(
@@ -374,12 +361,7 @@ class _CartScreenState extends State<CartScreen> {
                                               flex: 2,
                                               child: Container(
                                                 decoration: BoxDecoration(
-                                                    gradient:
-                                                        LinearGradient(colors: [
-                                                      Color(0xffF3FCFE),
-                                                      Color(0xffF3FCFE),
-                                                      Color(0xffF3FCFE),
-                                                    ]),
+                                                   color: background,
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             15)),
@@ -432,32 +414,6 @@ class _CartScreenState extends State<CartScreen> {
                                                             fontSize: 15),
                                                       ),
                                                     ),
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        Text(
-                                                          'Batch #: ${item.productId}',
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .black
-                                                                  .withOpacity(
-                                                                      0.5)),
-                                                        ),
-                                                        Text(
-                                                          'Expiry Date: ${item.expiryDate.toString()}',
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .black
-                                                                  .withOpacity(
-                                                                      0.5)),
-                                                        )
-                                                      ],
-                                                    ),
-
                                                     ///
                                                     /// price and increment and decrement
                                                     ///
@@ -470,7 +426,7 @@ class _CartScreenState extends State<CartScreen> {
                                                                 .spaceBetween,
                                                         children: [
                                                           Text(
-                                                              '$currencySymbol ${((double.parse(item.price)))}',
+                                                              'Rs. ${((double.parse(item.price)))}',
                                                               style: TextStyle(
                                                                   color: Colors
                                                                       .black,
@@ -622,8 +578,7 @@ class _CartScreenState extends State<CartScreen> {
                                                                   ),
                                                                   decoration:
                                                                       BoxDecoration(
-                                                                    color: Color(
-                                                                        0xff031344),
+                                                                    color: yellow,
                                                                     borderRadius: BorderRadius.only(
                                                                         topRight:
                                                                             Radius.circular(
@@ -668,7 +623,7 @@ class _CartScreenState extends State<CartScreen> {
                                                     fontSize: 16),
                                               ),
                                               Text(
-                                                "$currencySymbol ${double.parse(item.price) * item.quantity}",
+                                                "Rs. ${double.parse(item.price) * item.quantity}",
                                                 style: TextStyle(
                                                     color: Colors.blue,
                                                     fontSize: 16),
@@ -1352,7 +1307,7 @@ class _CartScreenState extends State<CartScreen> {
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               5),
-                                                      color: Color(0xff021343)),
+                                                      color: yellow),
                                                   child: Text(
                                                     "<",
                                                     style: TextStyle(
@@ -1387,7 +1342,7 @@ class _CartScreenState extends State<CartScreen> {
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               5),
-                                                      color: Color(0xff021343)),
+                                                      color: yellow),
                                                   child: Text(
                                                     ">",
                                                     style: TextStyle(
@@ -1440,7 +1395,7 @@ class _CartScreenState extends State<CartScreen> {
                             Row(
                               children: [
                                 Text(
-                                  'SubTotal:$currencySymbol ',
+                                  'SubTotal:Rs. ',
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 15.5),
                                 ),
@@ -1456,7 +1411,7 @@ class _CartScreenState extends State<CartScreen> {
                             Row(
                               children: [
                                 Text(
-                                  'Total:$currencySymbol ',
+                                  'Total:Rs. ',
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 15.5),
                                 ),
@@ -1616,7 +1571,7 @@ class _CartScreenState extends State<CartScreen> {
                             // margin: EdgeInsets.only(left: 20, top: 10),
                             // padding: EdgeInsets.only(top: 5, bottom: 5),
                             decoration: BoxDecoration(
-                                color: Colors.orangeAccent,
+                                color: yellow,
                                 borderRadius: BorderRadius.circular(10)),
                             child:
 
@@ -1657,7 +1612,7 @@ class _CartScreenState extends State<CartScreen> {
 
   Future<ProductsModel> getAllProducts(currentPage) async {
     final String apiUrl =
-        'https://erp.live/connector/api/product?page=$currentPage';
+        'https://food.erp.live/connector/api/product?page=$currentPage';
     final response = await http.get(
       Uri.parse(apiUrl),
       headers: {"Authorization": "Bearer" + " $accessToken"},

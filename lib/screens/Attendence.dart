@@ -206,7 +206,7 @@ class _AttendenceState extends State<Attendence> {
 
   Future<AttendenceModel> getSellMethod(String accessToken) async {
     print('+++++++++++++++   $id +++++++++++++++=');
-    final String apiUrl = "https://erp.live/connector/api/get-attendance/$id";
+    final String apiUrl = "https://food.erp.live/connector/api/get-attendance/$id";
 
     print("GetSellMethod RUnssss");
     print("++++++++++++++_____________+++++++++++++++");

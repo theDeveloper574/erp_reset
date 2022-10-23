@@ -6,12 +6,14 @@ import 'package:makeupshop/Models/ContactModel.dart';
 import 'package:makeupshop/Models/CreateSellModel.dart';
 import 'package:makeupshop/Models/GloballyAccess.dart';
 import 'package:http/http.dart' as http;
+import 'package:makeupshop/Models/TableModel.dart';
+import 'package:makeupshop/Models/serviceTypesModel.dart';
 import 'package:makeupshop/api/GloballyApi.dart';
 import 'package:makeupshop/main.dart';
 import 'package:makeupshop/screens/BottomAppBar.dart';
 import 'package:makeupshop/screens/shipment.dart';
+import 'package:makeupshop/style/color.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:localstore/localstore.dart';
 
 // ignore: must_be_immutable
 class CheckOutCash extends StatefulWidget {
@@ -27,6 +29,8 @@ class CheckOutCash extends StatefulWidget {
 }
 
 class _CheckOutCashState extends State<CheckOutCash> {
+  ServiceTypeModel serviceTypeModel;
+  TableModel tableModel;
   TextEditingController shipingDetailsController = TextEditingController();
   TextEditingController recivedAmountController = TextEditingController();
   TextEditingController changeReturnController = TextEditingController();
@@ -112,37 +116,25 @@ class _CheckOutCashState extends State<CheckOutCash> {
   Object _customerName;
   Object _itemValPage;
   int j;
+  var typeOfService = [];
+  Object serviceList;
+
+  var tableList = [];
+  Object tableItem;
   @override
   void initState() {
+    onPressOfTypeOfService();
+    onPressOfTable();
     // getIds();
-    print('MMMMMMMMMMMMMMMMMM');
-    print('ProductID');
-    print(widget.productId);
-    print('VariationId');
-    print(widget.variationId);
-    print('Unit ID');
-    print(widget.unitId);
-    print('Quantity');
-    print(widget.quantity);
-    print('LocationId');
-    print(widget.locationId);
-    print('Unit Price');
-    print(widget.unitPrice);
 
     onPress(accessToken);
     print(widget.locationId);
-    for (j = 0; j < widget.productId.length; j++) {
-      print('LLLLKKKKKKKKKKKLLLLLLLLLLLLLLLLL');
-      print(j);
-    }
-    print(j);
+
     super.initState();
   }
 
   @override
   void dispose() {
-    // RecivedAmountController.dispose();
-
     super.dispose();
   }
 
@@ -172,7 +164,15 @@ class _CheckOutCashState extends State<CheckOutCash> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffold,
-      // drawer: BuildMyDrawer(widget.tokenModel, widget.userInfoModel),
+      appBar: AppBar(
+        backgroundColor: appBarColor,
+        title: Text('CheckOut'),
+        leading: InkWell(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Icon(Icons.arrow_back)),
+      ),
       body: Stack(children: [
         Container(
           height: MediaQuery.of(context).size.height,
@@ -183,55 +183,18 @@ class _CheckOutCashState extends State<CheckOutCash> {
               end: Alignment.topCenter,
               colors: [
                 Colors.white,
-                Color(0xff021343),
+                appBarColor,
               ],
             ),
           ),
           child: Column(
             children: [
-              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-              //
-              //  CheckOut Header
-              //
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                height: 40,
-                child: Row(
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          Navigator.pop(context, false);
-                        });
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(15)),
-                        child: Icon(
-                          Icons.arrow_back_sharp,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                    Text(
-                      "  Check out",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18),
-                    ),
-                  ],
-                ),
-              ),
               Expanded(
                   child: Container(
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage('asset/bgColor.png'), fit: BoxFit.fill),
-                  color: Colors.white.withOpacity(.9),
+                  color: background,
                   borderRadius: BorderRadius.only(
                     topRight: Radius.circular(25),
                     topLeft: Radius.circular(25),
@@ -435,7 +398,7 @@ class _CheckOutCashState extends State<CheckOutCash> {
                             child: DropdownButton(
                               underline: SizedBox(),
                               isExpanded: true,
-                              hint: Text("Please Select Customer Name"),
+                              hint: Text("Customer Name"),
                               icon: Icon(
                                 Icons.keyboard_arrow_down,
                               ),
@@ -455,13 +418,10 @@ class _CheckOutCashState extends State<CheckOutCash> {
                                         .toString()
                                         .toLowerCase() ==
                                     'walk-in-customers') {
-                                  print('OK');
-
                                   setState(() {
                                     isWalkin = true;
                                   });
                                 } else {
-                                  print('not');
                                   setState(() {
                                     isWalkin = false;
                                   });
@@ -473,6 +433,70 @@ class _CheckOutCashState extends State<CheckOutCash> {
                               }).toList(),
                             ),
                           ),
+                          SizedBox(height: 5.0),
+
+                          ///
+                          /// service type
+                          ///
+                          Container(
+                            padding: EdgeInsets.only(left: 10, right: 10),
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                                border:
+                                    Border.all(color: Colors.grey.shade300)),
+                            child: DropdownButton(
+                              underline: SizedBox(),
+                              isExpanded: true,
+                              hint: Text("Type of Service"),
+                              icon: Icon(
+                                Icons.keyboard_arrow_down,
+                              ),
+                              value: serviceList,
+                              onChanged: (value) {
+                                setState(() {
+                                  serviceList = value;
+                                });
+                              },
+                              items: typeOfService.map((value) {
+                                return DropdownMenuItem(
+                                    value: value, child: Text(value));
+                              }).toList(),
+                            ),
+                          ),
+
+                          SizedBox(height: 5.0),
+
+                          ///
+                          /// tables
+                          ///
+                          Container(
+                            padding: EdgeInsets.only(left: 10, right: 10),
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                                border:
+                                    Border.all(color: Colors.grey.shade300)),
+                            child: DropdownButton(
+                              underline: SizedBox(),
+                              isExpanded: true,
+                              hint: Text("Tables"),
+                              icon: Icon(
+                                Icons.keyboard_arrow_down,
+                              ),
+                              value: tableItem,
+                              onChanged: (value) {
+                                setState(() {
+                                  tableItem = value;
+                                });
+                              },
+                              items: tableList.map((value) {
+                                return DropdownMenuItem(
+                                    value: value, child: Text(value));
+                              }).toList(),
+                            ),
+                          ),
+
                           Row(
                             children: [
                               Text(
@@ -501,7 +525,7 @@ class _CheckOutCashState extends State<CheckOutCash> {
                                       style: TextStyle(color: Colors.black45),
                                     ),
                                     Text(
-                                      "$currencySymbol ${double.parse(widget.subTotal.toString())}",
+                                      "Rs. ${double.parse(widget.subTotal.toString())}",
                                       style: TextStyle(
                                           color: Colors.blue,
                                           fontSize: 18,
@@ -521,7 +545,7 @@ class _CheckOutCashState extends State<CheckOutCash> {
                                       style: TextStyle(color: Colors.black45),
                                     ),
                                     Text(
-                                      "$currencySymbol $changeAmount",
+                                      "Rs. $changeAmount",
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 18,
@@ -581,7 +605,7 @@ class _CheckOutCashState extends State<CheckOutCash> {
                                           decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(10),
-                                            color: Colors.blue,
+                                            color: yellow,
                                           ),
                                           child: Padding(
                                             padding: const EdgeInsets.only(
@@ -616,7 +640,7 @@ class _CheckOutCashState extends State<CheckOutCash> {
                                               child: Text(
                                                 'Cash',
                                                 style: TextStyle(
-                                                  color: Colors.blue,
+                                                  color: yellow,
                                                   fontSize: 16,
                                                 ),
                                               ),
@@ -641,7 +665,7 @@ class _CheckOutCashState extends State<CheckOutCash> {
                                           decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(10),
-                                            color: Colors.blue,
+                                            color: yellow,
                                           ),
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
@@ -669,7 +693,7 @@ class _CheckOutCashState extends State<CheckOutCash> {
                                               child: Text(
                                                 'Bank Transfer',
                                                 style: TextStyle(
-                                                  color: Colors.blue,
+                                                  color: yellow,
                                                   fontSize: 16,
                                                 ),
                                               ),
@@ -694,7 +718,7 @@ class _CheckOutCashState extends State<CheckOutCash> {
                                           decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(10),
-                                            color: Colors.blue,
+                                            color: yellow,
                                           ),
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
@@ -722,7 +746,7 @@ class _CheckOutCashState extends State<CheckOutCash> {
                                               child: Text(
                                                 'Easy Paisa',
                                                 style: TextStyle(
-                                                  color: Colors.blue,
+                                                  color: yellow,
                                                   fontSize: 16,
                                                 ),
                                               ),
@@ -1030,47 +1054,9 @@ class _CheckOutCashState extends State<CheckOutCash> {
                                         )
                                       : Container(),
                           SizedBox(
-                            height: 5,
+                            height: 15,
                           ),
-                          // Align(
-                          //     alignment: Alignment.centerLeft,
-                          //     child: Text('Notes')),
-                          // SizedBox(
-                          //   height: 5,
-                          // ),
-                          // Container(
-                          //   decoration: BoxDecoration(
-                          //     color: Colors.white,
-                          //     borderRadius: BorderRadius.circular(12),
-                          //   ),
-                          //   child: TextFormField(
-                          //     decoration: InputDecoration(
-                          //         border: InputBorder.none,
-                          //         contentPadding: EdgeInsets.symmetric(
-                          //             horizontal: 10, vertical: 10),
-                          //         hintText: 'Shipping Details'),
-                          //   ),
-                          // ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          // Row(
-                          //   children: [
-                          //     Image(
-                          //       image: AssetImage("asset/username_check.png"),
-                          //     ),
-                          //     Text(
-                          //       "  Print Invoice ",
-                          //       style: TextStyle(
-                          //         color: Colors.black,
-                          //         fontSize: 18,
-                          //       ),
-                          //     ),
-                          //   ],
-                          // ),
-                          SizedBox(
-                            height: 5,
-                          ),
+
                           Center(
                             child: GestureDetector(
                               onTap: () {
@@ -1103,20 +1089,18 @@ class _CheckOutCashState extends State<CheckOutCash> {
                                 //         builder: (context) => bottombar(2)));
                               },
                               child: Container(
-                                padding: EdgeInsets.all(12),
-                                // height: MediaQuery.of(context).size.height * 0.06,
-                                width: MediaQuery.of(context).size.width * 0.6,
+                                padding: EdgeInsets.symmetric(vertical: 13),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
-                                  color: Color(0xff23bf5a),
+                                  color: yellow,
                                 ),
                                 child: Center(
                                   child: Text(
-                                    "CONFIRM PAYMENT",
+                                    "Confirm Payment",
                                     style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20,
-                                    ),
+                                        color: Colors.white,
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.w500),
                                   ),
                                 ),
                               ),
@@ -1135,199 +1119,40 @@ class _CheckOutCashState extends State<CheckOutCash> {
     );
   }
 
-  void buttonPressed() {
-    print('ababbbabba');
+  onPressOfTypeOfService() async {
+    final ServiceTypeModel model = await getTypeOfService();
+    setState(() {
+      serviceTypeModel = model;
+    });
+    if (serviceTypeModel == null) {
+      ToastMsg(Colors.red, 'Try agian');
+    } else {
+      print('successfully');
+      for (int i = 0; i < serviceTypeModel.data.length; i++) {
+        typeOfService.add(serviceTypeModel.data[i].id.toString() +
+            "." +
+            serviceTypeModel.data[i].name);
+      }
+    }
+  }
 
-    showModalBottomSheet(
-        context: context,
-        builder: (BuildContext context) {
-          return new StatefulBuilder(builder: (BuildContext context, setState) {
-            return Container(
-              color: Color(0xff737373),
-              height: MediaQuery.of(context).size.height * 0.5,
-              child: Container(
-                child: ListView(
-                  children: [
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.02,
-                    ),
-                    Center(
-                      child: Text(
-                        "Print",
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.01,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        // height: MediaQuery.of(context).size.height * 0.07,
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 15,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(
-                            color: Colors.grey.shade300,
-                          ),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: DropdownButton(
-                          underline: SizedBox(),
-                          isExpanded: true,
-                          hint: Text("Select Printers"),
-                          icon: Icon(
-                            Icons.keyboard_arrow_down,
-                          ),
-                          value: _itemValPrinter,
-                          onChanged: (value) {
-                            setState(() {
-                              _itemValPrinter = value;
-                            });
-                          },
-                          items: itemnamePrinter.map((value) {
-                            return DropdownMenuItem(
-                                value: value, child: Text(value));
-                          }).toList(),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        // height: MediaQuery.of(context).size.height * 0.07,
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 15,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(
-                            color: Colors.grey.shade300,
-                          ),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: DropdownButton(
-                          underline: SizedBox(),
-                          isExpanded: true,
-                          hint: Text("Page Size"),
-                          icon: Icon(
-                            Icons.keyboard_arrow_down,
-                          ),
-                          value: _itemValPage,
-                          onChanged: (value) {
-                            setState(() {
-                              _itemValPage = value;
-                            });
-                          },
-                          items: itemnamePage.map((value) {
-                            return DropdownMenuItem(
-                                value: value, child: Text(value));
-                          }).toList(),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 10),
-                      child: Row(
-                        children: [
-                          Expanded(
-                              child: Container(
-                                  decoration: BoxDecoration(
-                                      border: Border.all(
-                                        color: Colors.grey.shade300,
-                                      ),
-                                      borderRadius: BorderRadius.circular(12)),
-                                  // margin: EdgeInsets.symmetric(horizontal: 10),
-                                  child: TextFormField(
-                                    enabled: false,
-                                    decoration: InputDecoration(
-                                      contentPadding: EdgeInsets.all(12),
-                                      hintText: 'Number of Copies',
-                                      border: InputBorder.none,
-                                    ),
-                                  ))),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Container(
-                            padding: EdgeInsets.symmetric(horizontal: 19),
-                            decoration: BoxDecoration(
-                                color: Colors.grey[500],
-                                borderRadius: BorderRadius.circular(12)),
-                            child: Center(
-                                child: Text(
-                              '-',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 45,
-                                  fontWeight: FontWeight.bold),
-                            )),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          InkWell(
-                            onTap: () {},
-                            child: Container(
-                                // margin: EdgeInsets.symmetric(horizontal: 30),
-                                padding: EdgeInsets.symmetric(horizontal: 15),
-                                decoration: BoxDecoration(
-                                    color: Colors.orangeAccent,
-                                    borderRadius: BorderRadius.circular(12)),
-                                child: Center(
-                                  child: Text('+',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 45,
-                                          fontWeight: FontWeight.bold)),
-                                )),
-                          )
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      child: Column(
-                        children: [
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 80, vertical: 15),
-                            decoration: BoxDecoration(
-                                color: Colors.blue,
-                                borderRadius: BorderRadius.circular(12)),
-                            child: Text(
-                              'Done',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20)),
-                ),
-              ),
-            );
-          });
-        });
+  ///
+  /// table
+  ///
+  onPressOfTable() async {
+    final TableModel model = await getTables();
+    setState(() {
+      tableModel = model;
+    });
+    if (tableModel == null) {
+      ToastMsg(Colors.red, 'Try agian');
+    } else {
+      print('successfully');
+      for (int i = 0; i < tableModel.data.length; i++) {
+        tableList.add(
+            tableModel.data[i].id.toString() + "." + tableModel.data[i].name);
+      }
+    }
   }
 
   onPress1(String accessToken) async {
@@ -1338,25 +1163,20 @@ class _CheckOutCashState extends State<CheckOutCash> {
     });
     if (_createSellModel == null) {
     } else {
-      ToastMsg(Colors.green, 'Data Added SuccessFully');
+      print('Successfully');
     }
   }
 
+  // ignore: missing_return
   Future<CreateSellModel> getSellMethod1(String accessToken) async {
-    final String apiUrl = 'https://erp.live/connector/api/sell';
-
-    print("GetSellMethod RUnssss");
-    print("++++++++++++++_____________+++++++++++++++");
-    print("Bearer" + " $accessToken");
+    final String apiUrl = 'https://food.erp.live/connector/api/sell';
     Map<String, String> headers = {
       "Content-Type": "application/json",
       "Accept": "application/json",
       "Authorization": "Bearer" + " $accessToken"
     };
     splittedValue = _customerName.toString().split(" ");
-    print(splittedValue[0]);
-    print('LLLLLLLLLLLLLLLLLLLLLL');
-    print(widget.productId.length);
+
     final msg = jsonEncode({
       "sells": [
         {
@@ -1368,6 +1188,8 @@ class _CheckOutCashState extends State<CheckOutCash> {
           "delivered_to": deliveredTo.text,
           "shipping_charges": shippmentCharges.text,
           "change_return": 0,
+          "table_id": tableItem.toString().split('.')[0].toString(),
+          "types_of_service_id": serviceList.toString().split('.')[0].toString(),
           "products": [
             for (int i = 0; i < widget.productId.length; i++)
               {
@@ -1388,24 +1210,14 @@ class _CheckOutCashState extends State<CheckOutCash> {
     final response =
         await http.post(Uri.parse(apiUrl), headers: headers, body: msg);
 
-    print("Response Status : ${response.statusCode}");
-
-    print(response.body);
-    print(response.statusCode);
-    print('body' + '$msg');
-
     if (response.statusCode == 200) {
-      ToastMsg(
-        Colors.green,
-        "Data Added SuccessFully ",
+      print(
+        "Successfully ",
       );
-      print('Run SuccessFully');
-
-      print('PPPPPPPPPPPPPPPPPPPPP');
     } else {
       ToastMsg(
         Colors.red,
-        "Something went Wrong,try again",
+        "Try again",
       );
       return null;
     }
@@ -1420,44 +1232,68 @@ class _CheckOutCashState extends State<CheckOutCash> {
     if (_contactModel == null) {
       ToastMsg(
         Colors.red,
-        "Something went Wrong,try again",
+        "Try again",
       );
     } else {
-      print('ababababababab');
       for (int i = 0; i < _contactModel.data.length; i++) {
         if (_contactModel.data[i].type.toString().toLowerCase() != "supplier") {
-          print("Added");
-
           customerNamedList.add(_contactModel.data[i].id.toString() +
               " " +
               _contactModel.data[i].name.toString());
 
-          print(customerNamedList.toString().split(" "));
-          print(customerNamedList.toString().split(" "));
           customerList = customerNamedList.toSet().toList();
-          print(customerList.toString().split(" "));
         }
       }
     }
   }
 }
 
+Future<ServiceTypeModel> getTypeOfService() async {
+  final String apiUrl = 'https://food.erp.live/connector/api/types-of-service';
+  final response = await http.get(Uri.parse(apiUrl), headers: {
+    "Authorization": "Bearer" + " $accessToken",
+  });
+  if (response.statusCode == 200) {
+    final String responseString = response.body;
+
+    return serviceTypeModelFromJson(responseString);
+  } else {
+    ToastMsg(
+      Colors.red,
+      "Try again",
+    );
+    return null;
+  }
+}
+
+///
+/// tables
+///
+Future<TableModel> getTables() async {
+  final String apiUrl = 'https://food.erp.live/connector/api/table';
+  final response = await http.get(Uri.parse(apiUrl), headers: {
+    "Authorization": "Bearer" + " $accessToken",
+  });
+  if (response.statusCode == 200) {
+    final String responseString = response.body;
+
+    return tableModelFromJson(responseString);
+  } else {
+    ToastMsg(
+      Colors.red,
+      "Try again",
+    );
+    return null;
+  }
+}
+
 Future<ContactModel> getSellMethod(String accessToken) async {
   final String apiUrl = erpUrl + contactApi;
-
-  print("GetSellMethod RUnssss");
-  print("++++++++++++++_____________+++++++++++++++");
-  print("Bearer" + " $accessToken");
-
   final response = await http.get(Uri.parse(apiUrl), headers: {
     "Authorization": "Bearer" + " $accessToken",
     "Content-Type": "application/json",
     "Accept": "application/json",
   });
-
-  print("thissss is status code+++++++++++++++++++");
-  // print(response.statusCode);
-  // print(response.body);
 
   if (response.statusCode == 200) {
     final String responseString = response.body;
@@ -1466,7 +1302,7 @@ Future<ContactModel> getSellMethod(String accessToken) async {
   } else {
     ToastMsg(
       Colors.red,
-      "SOmething went Wrong status code is ",
+      "Try again.",
     );
     return null;
   }

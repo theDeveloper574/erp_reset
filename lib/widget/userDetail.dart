@@ -4,6 +4,7 @@ import 'package:makeupshop/Models/Users.dart';
 import 'package:makeupshop/Models/todoModel.dart';
 import 'package:easy_localization/easy_localization.dart';
 
+// ignore: must_be_immutable
 class UserDetail extends StatefulWidget {
   UsersModel _userModel;
   int index;
@@ -13,6 +14,7 @@ class UserDetail extends StatefulWidget {
 }
 
 class _UserDetailState extends State<UserDetail> {
+  // ignore: unused_field
   final _items = <String, Todo>{};
   @override
   Widget build(BuildContext context) {

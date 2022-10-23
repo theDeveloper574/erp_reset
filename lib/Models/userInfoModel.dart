@@ -91,9 +91,9 @@ class Data {
   String language;
   dynamic contactNo;
   dynamic address;
-  int businessId;
+  String businessId;
   dynamic maxSalesDiscountPercent;
-  int allowLogin;
+  String allowLogin;
   dynamic essentialsDepartmentId;
   dynamic essentialsDesignationId;
   dynamic essentialsSalary;
@@ -101,9 +101,9 @@ class Data {
   dynamic essentialsPayCycle;
   String status;
   dynamic crmContactId;
-  int isCmmsnAgnt;
+  String isCmmsnAgnt;
   String cmmsnPercent;
-  int selectedContacts;
+  String selectedContacts;
   dynamic dob;
   dynamic gender;
   dynamic maritalStatus;
@@ -145,9 +145,9 @@ class Data {
         language: json["language"],
         contactNo: json["contact_no"],
         address: json["address"],
-        businessId: json["business_id"],
+        businessId: json["business_id"].toString(),
         maxSalesDiscountPercent: json["max_sales_discount_percent"],
-        allowLogin: json["allow_login"],
+        allowLogin: json["allow_login"].toString(),
         essentialsDepartmentId: json["essentials_department_id"],
         essentialsDesignationId: json["essentials_designation_id"],
         essentialsSalary: json["essentials_salary"],
@@ -335,7 +335,7 @@ class Business {
 
   int id;
   String name;
-  int currencyId;
+  String currencyId;
   DateTime startDate;
   dynamic taxNumber1;
   dynamic taxLabel1;
@@ -346,25 +346,25 @@ class Business {
   dynamic codeLabel2;
   dynamic code2;
   dynamic defaultSalesTax;
-  int defaultProfitPercent;
-  int ownerId;
+  String defaultProfitPercent;
+  String ownerId;
   String timeZone;
-  int fyStartMonth;
+  String fyStartMonth;
   String accountingMethod;
   String defaultSalesDiscount;
   String sellPriceTax;
   dynamic logo;
   dynamic skuPrefix;
-  int enableProductExpiry;
+  String enableProductExpiry;
   String expiryType;
   String onProductExpiry;
-  int stopSellingBefore;
-  int enableTooltip;
-  int purchaseInDiffCurrency;
+  String stopSellingBefore;
+  String enableTooltip;
+  String purchaseInDiffCurrency;
   dynamic purchaseCurrencyId;
   String pExchangeRate;
-  int transactionEditDays;
-  int stockExpiryAlertDays;
+  String transactionEditDays;
+  String stockExpiryAlertDays;
   String keyboardShortcuts;
   String posSettings;
   WeighingScaleSetting weighingScaleSetting;
@@ -375,21 +375,21 @@ class Business {
   dynamic woocommerceWhOrSecret;
   dynamic essentialsSettings;
   dynamic manufacturingSettings;
-  int enableBrand;
-  int enableCategory;
-  int enableSubCategory;
-  int enablePriceTax;
-  int enablePurchaseStatus;
-  int enableLotNumber;
+  String enableBrand;
+  String enableCategory;
+  String enableSubCategory;
+  String enablePriceTax;
+  String enablePurchaseStatus;
+  String enableLotNumber;
   dynamic defaultUnit;
-  int enableSubUnits;
-  int enableRacks;
-  int enableRow;
-  int enablePosition;
-  int enableEditingProductFromPurchase;
+  String enableSubUnits;
+  String enableRacks;
+  String enableRow;
+  String enablePosition;
+  String enableEditingProductFromPurchase;
   String salesCmsnAgnt;
-  int itemAdditionMethod;
-  int enableInlineTax;
+  String itemAdditionMethod;
+  String enableInlineTax;
   String currencySymbolPlacement;
   List<String> enabledModules;
   String dateFormat;
@@ -399,7 +399,7 @@ class Business {
   dynamic createdBy;
   dynamic crmSettings;
   dynamic repairSettings;
-  int enableRp;
+  String enableRp;
   dynamic rpName;
   String amountForUnitRp;
   String minOrderTotalForRp;
@@ -414,14 +414,14 @@ class Business {
   SmsSettings smsSettings;
   String customLabels;
   CommonSettings commonSettings;
-  int isActive;
+  String isActive;
   DateTime createdAt;
   DateTime updatedAt;
 
   factory Business.fromJson(Map<String, dynamic> json) => Business(
         id: json["id"],
         name: json["name"],
-        currencyId: json["currency_id"],
+        currencyId: json["currency_id"].toString(),
         startDate: DateTime.parse(json["start_date"]),
         taxNumber1: json["tax_number_1"],
         taxLabel1: json["tax_label_1"],

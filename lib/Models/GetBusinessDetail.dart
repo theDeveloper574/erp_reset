@@ -80,7 +80,7 @@ class Data {
     this.defaultUnit,
     this.enableSubUnits,
     this.enableRacks,
-    this.enableRow,
+    // this.enableRow,
     this.enablePosition,
     this.enableEditingProductFromPurchase,
     this.salesCmsnAgnt,
@@ -122,7 +122,7 @@ class Data {
 
   int id;
   String name;
-  int currencyId;
+  String currencyId;
   DateTime startDate;
   dynamic taxNumber1;
   dynamic taxLabel1;
@@ -133,25 +133,25 @@ class Data {
   dynamic codeLabel2;
   dynamic code2;
   dynamic defaultSalesTax;
-  int defaultProfitPercent;
-  int ownerId;
+  String defaultProfitPercent;
+  String ownerId;
   String timeZone;
-  int fyStartMonth;
+  String fyStartMonth;
   String accountingMethod;
   String defaultSalesDiscount;
   String sellPriceTax;
   dynamic logo;
   dynamic skuPrefix;
-  int enableProductExpiry;
+  String enableProductExpiry;
   String expiryType;
   String onProductExpiry;
-  int stopSellingBefore;
-  int enableTooltip;
-  int purchaseInDiffCurrency;
+  String stopSellingBefore;
+  String enableTooltip;
+  String purchaseInDiffCurrency;
   dynamic purchaseCurrencyId;
   String pExchangeRate;
-  int transactionEditDays;
-  int stockExpiryAlertDays;
+  String transactionEditDays;
+  String stockExpiryAlertDays;
   KeyboardShortcuts keyboardShortcuts;
   PosSettings posSettings;
   WeighingScaleSetting weighingScaleSetting;
@@ -162,21 +162,20 @@ class Data {
   dynamic woocommerceWhOrSecret;
   dynamic essentialsSettings;
   dynamic manufacturingSettings;
-  int enableBrand;
-  int enableCategory;
-  int enableSubCategory;
-  int enablePriceTax;
-  int enablePurchaseStatus;
-  int enableLotNumber;
+  String enableBrand;
+  String enableCategory;
+  String enableSubCategory;
+  String enablePriceTax;
+  String enablePurchaseStatus;
+  String enableLotNumber;
   dynamic defaultUnit;
-  int enableSubUnits;
-  int enableRacks;
-  int enableRow;
-  int enablePosition;
-  int enableEditingProductFromPurchase;
+  String enableSubUnits;
+  String enableRacks;
+  String enablePosition;
+  String enableEditingProductFromPurchase;
   String salesCmsnAgnt;
-  int itemAdditionMethod;
-  int enableInlineTax;
+  String itemAdditionMethod;
+  String enableInlineTax;
   String currencySymbolPlacement;
   List<String> enabledModules;
   String dateFormat;
@@ -186,7 +185,7 @@ class Data {
   dynamic createdBy;
   dynamic crmSettings;
   dynamic repairSettings;
-  int enableRp;
+  String enableRp;
   dynamic rpName;
   String amountForUnitRp;
   String minOrderTotalForRp;
@@ -201,14 +200,14 @@ class Data {
   SmsSettings smsSettings;
   CustomLabels customLabels;
   CommonSettings commonSettings;
-  int isActive;
+  String isActive;
   DateTime createdAt;
   DateTime updatedAt;
   List<LocationElement> locations;
   Currency currency;
   List<dynamic> printers;
-  int currencyPrecision;
-  int quantityPrecision;
+  String currencyPrecision;
+  String quantityPrecision;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         id: json["id"],
@@ -264,7 +263,7 @@ class Data {
         defaultUnit: json["default_unit"],
         enableSubUnits: json["enable_sub_units"],
         enableRacks: json["enable_racks"],
-        enableRow: json["enable_row"],
+        // enableRow: json["enable_row"],
         enablePosition: json["enable_position"],
         enableEditingProductFromPurchase:
             json["enable_editing_product_from_purchase"],
@@ -360,7 +359,7 @@ class Data {
         "default_unit": defaultUnit,
         "enable_sub_units": enableSubUnits,
         "enable_racks": enableRacks,
-        "enable_row": enableRow,
+        // "enable_row": enableRow,
         "enable_position": enablePosition,
         "enable_editing_product_from_purchase":
             enableEditingProductFromPurchase,
@@ -815,11 +814,11 @@ class LocationElement {
   String state;
   String city;
   String zipCode;
-  int invoiceSchemeId;
-  int invoiceLayoutId;
-  int saleInvoiceLayoutId;
+  String invoiceSchemeId;
+  String invoiceLayoutId;
+  String saleInvoiceLayoutId;
   dynamic sellingPriceGroupId;
-  int printReceiptOnInvoice;
+  String printReceiptOnInvoice;
   String receiptPrinterType;
   dynamic printerId;
   String mobile;
@@ -828,7 +827,7 @@ class LocationElement {
   dynamic website;
   dynamic featuredProducts;
   DefaultPaymentAccounts defaultPaymentAccounts;
-  int isActive;
+  String isActive;
   dynamic customField1;
   dynamic customField2;
   dynamic customField3;
@@ -981,14 +980,14 @@ class PosSettings {
   dynamic stripePublicKey;
   dynamic stripeSecretKey;
   dynamic cashDenominations;
-  int disablePayCheckout;
-  int disableDraft;
-  int disableExpressCheckout;
-  int hideProductSuggestion;
-  int hideRecentTrans;
-  int disableDiscount;
-  int disableOrderTax;
-  int isPosSubtotalEditable;
+  dynamic disablePayCheckout;
+  String disableDraft;
+  String disableExpressCheckout;
+  String hideProductSuggestion;
+  String hideRecentTrans;
+  String disableDiscount;
+  String disableOrderTax;
+  String isPosSubtotalEditable;
 
   factory PosSettings.fromJson(Map<String, dynamic> json) => PosSettings(
         cmmsnCalculationType: json["cmmsn_calculation_type"],
